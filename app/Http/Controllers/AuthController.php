@@ -7,12 +7,101 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use OpenApi\Annotations as OA;
 
+
+/**
+ * @OA\Info(
+ *     title="API Desk Documentation",
+ *     version="1.0",
+ *     description="Documentação da API Desk."
+ * )
+ * * @OA\SecurityScheme(
+ *     securityScheme="sanctumAuth",
+ *     type="http",
+ *     scheme="bearer",
+ *     bearerFormat="JWT"
+ * )
+ *  @OA\Server(
+ *      url=L5_SWAGGER_CONST_HOST,
+ *      description="Demo API Server"
+ * )
+ *
+ */
 class AuthController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+
+    /**
+     *@OA\Post(
+     *     path="/login",
+     *     summary="",
+     *     tags={"Autenticação"},
+     *     description="",
+     *     @OA\RequestBody(
+     *         required=true,
+     *        @OA\JsonContent(
+     *            required={"email","password"},
+     *              @OA\Property(
+     *                  property="email",
+     *                  type="string",
+     *
+     *                  example="fulan@teste.com",
+     *                  description="d"
+     *              ),
+     *              @OA\Property(
+     *                  property="password",
+     *                  type="string",
+     *
+     *                  example="password",
+     *                  description="d"
+     *              )
+     *        )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *          description="k",
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="id",
+     *                  type="integer",
+     *                  example="4",
+     *                  description="d"
+     *              ),
+     *              @OA\Property(
+     *                  property="name",
+     *                  type="string",
+     *                  example="fulano",
+     *                  description="d"
+     *              ),
+     *              @OA\Property(
+     *                  property="email",
+     *                  type="string",
+     *                  example="fulan@teste.com",
+     *                  description="d"
+     *              ),
+     *
+     *          )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *          description="d",
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="Unauthorized",
+     *                  description="d"
+     *              )
+     *          )
+     *     )
+     *
+     *)
+     */
+
+
     public function login(Request $request)
     {
         $request->validate([
