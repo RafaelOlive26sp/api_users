@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,11 +16,16 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Juliana',
-            'email' => 'juliana@gmail.com',
-            'password' => bcrypt('password'),
-
+//        User::factory()->create([
+//            'name' => 'Juliana',
+//            'email' => 'juliana@gmail.com',
+//            'password' => bcrypt('password'),
+//
+//        ]);
+        DB::table('access_privileges')->insert([
+            ['privilege' => 'Admin'],
+            ['privilege' => 'Attendant'],
+            ['privilege' => 'Client'],
         ]);
     }
 }
