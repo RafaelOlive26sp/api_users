@@ -48,7 +48,7 @@ class User extends Authenticatable
         ];
     }
 
-    public function privileges(){
-     return $this->belongsTo(Access_privilege::class);
+    public function accessPrivilege(){
+     return $this->belongsTo(Access_privilege::class,'privilege_id','id');
     }
 }
