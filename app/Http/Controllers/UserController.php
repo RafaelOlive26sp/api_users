@@ -6,6 +6,7 @@ use App\Http\Resources\UsersResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
 class UserController extends Controller
@@ -71,6 +72,23 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json([
+                'message' => 'User not found'
+            ],404);
+        }
+
+        DB::transaction(function () use ($user) {
+            $user->tokens()->delete();
+        });
+
+        $user->delete();
+
+        return response()->json([
+            'message' => 'User deleted successfully'
+        ],200);
+
     }
 }
