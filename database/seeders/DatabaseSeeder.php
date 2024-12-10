@@ -16,16 +16,17 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-//        User::factory()->create([
-//            'name' => 'Juliana',
-//            'email' => 'juliana@gmail.com',
-//            'password' => bcrypt('password'),
-//
-//        ]);
-        DB::table('access_privileges')->insert([
-            ['privilege' => 'Admin'],
-            ['privilege' => 'Attendant'],
-            ['privilege' => 'Client'],
+        User::factory()->create([
+            'name' => 'Rafael',
+            'email' => 'Rafael@admin.com',
+            'password' => bcrypt('password'),
+            'privilege_id' => '1'
+
         ]);
+//        DB::table('access_privileges')->insert([
+//            ['privilege' => 'Admin'],
+//            ['privilege' => 'Attendant'],
+//            ['privilege' => 'Client'],
+//        ]);
     }
 }
