@@ -6,6 +6,7 @@ use App\Http\Resources\UsersResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -39,20 +40,30 @@ class UserController extends Controller
 
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
-        //
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json([
+                'message' => 'User not found'
+            ],404);
+        }
+
+        $request->validate([
+            'name' => ['sometimes', 'string'],
+            'email' => ['sometimes', 'email', Rule::unique('users')->ignore($user)],
+            'password' => ['sometimes', 'string','min:6'],
+        ]);
+
+        $user->update($request->only(['name','email','password']));
+
+        return new UsersResource($user);
     }
 
     /**
