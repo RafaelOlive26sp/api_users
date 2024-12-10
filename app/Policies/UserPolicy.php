@@ -19,4 +19,9 @@ class UserPolicy
         return in_array($user->privilege_id,[1,2]);
 
     }
+
+    public function update(User $user): bool
+    {
+        return in_array($user->privilege_id,[1,2]);
+    }
 }
