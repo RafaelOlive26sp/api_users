@@ -4,19 +4,30 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\UsersResource;
 use App\Models\User;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
+use Illuminate\Auth\Middleware\Authorize;
 
 class UserController extends Controller
 {
+    use AuthorizesRequests;
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(User $user)
     {
-        return false;
+
+        try {
+            $this->authorize('viewAny', User::class);
+        } catch (AuthorizationException $e) {
+            return response()->json(['message' => 'You are not authorized to acess'], 403);
+        }
+        return UsersResource::collection(User::all());
     }
 
 
