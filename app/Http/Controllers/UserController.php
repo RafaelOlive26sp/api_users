@@ -36,7 +36,12 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $this->authorize('update', User::class);
+        }catch (AuthorizationException $e) {
+            return response()->json(['message' => 'You are not authorized to acess'], 403);
+        }
+        return 'estamos no store';
     }
 
     /**
