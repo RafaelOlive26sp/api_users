@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUserRequest;
 use App\Http\Resources\UsersResource;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -141,21 +142,16 @@ class AuthController extends Controller
         ],200);
     }
 
-    public function register(Request $request)
+    public function register(StoreUserRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|string|email|unique:users',
-            'password' => 'required|string|min:6'
+        $validateData = $request->validated();
 
-        ]);
-
-         $user = User::create([
-             'name'=>$request->input('name'),
-             'email'=>$request->input('email'),
-             'password'=>Hash::make($request->input('password'))
-         ]);
-
+        //  $user = User::create([
+        //      'name'=>$request->input('name'),
+        //      'email'=>$request->input('email'),
+        //      'password'=>Hash::make($request->input('password'))
+        //  ]);
+        $user = User::create($validateData);
 
 
 
