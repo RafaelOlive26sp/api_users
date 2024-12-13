@@ -303,6 +303,62 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+
+    /**
+     * @OA\Delete(
+     *     tags={"Usuario"},
+     *    path="/user/{id}",
+     *    summary="Excluir um Usuario,Somente admins e atendentes podem excluir contas de terceiros",
+     *    description="Deleta o Usuario, somente admins podem utilizar outros ID's",
+     *    security={{"sanctumAuth":{}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID do usuario a ser excluido",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="User removed success",
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="User removed success",
+     *                  description="Retornara uma mensagem de sucesso que o usuario foi exluido com sucesso"
+     *              )
+     *          )
+     *     ),
+     *     @OA\Response(
+     *         response=403,
+     *         description="You are not authorized to delete this user, somente admins podem exluir outros ID's",
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="You are not authorized to delete this user",
+     *                  description="Somente administradores de sistema e atendentes podem excluir contas de terceiros"
+     *              )
+     *          )
+     *     ),
+     *     @OA\Response(
+     *          response=404,
+     *          description="Usuario nao encontrado",
+     *        @OA\JsonContent(
+     *            @OA\Property(
+     *                property="message",
+     *                type="string",
+     *                example="User Not found",
+     *                description="Se o usuario nao existir no banco de dados ou se ja foi exluido"
+     *            )
+     *        )
+     *     ),
+     * )
+     */
+
     public function destroy(string $id)
     {
         $user = User::find($id);
