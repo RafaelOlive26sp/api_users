@@ -21,11 +21,20 @@ class StoreUserRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules =  [
             'name'=> ['required','string','max:255','regex:/^[a-zA-ZÀ-ÿ\s]+$/u'],
             'email'=>'required|string|unique:users,email',
             'password'=>'required|min:8',
         ];
+
+        if ($this->isMethod('patch') || $this->isMethod('post')) {
+            $rules['email'] = 'required|email|unique:users,email';
+            $rules['password']='required|string|min:8';
+        }
+
+        return $rules;
+
+
     }
 
     public function messages(): array
