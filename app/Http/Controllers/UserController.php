@@ -20,6 +20,53 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+     /**
+     * @OA\GET(
+     *     path="/user",
+     *     summary="Realiza uma Collection de todos os usuarios, Somente admins e atendentes podem Realizar essa consulta ",
+     *     tags={"Usuario"},
+     *     security={{"sanctumAuth":{}}},
+
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK, Dados recuperados com sucesso",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="data", type="array",
+     *                 @OA\Items(
+     *                      type="object",
+     *                      @OA\Property(property="id", type="integer", example="2"),
+     *                      @OA\Property(property="email", type="string", example="email@teste.com"),
+     *                      @OA\Property(property="privilege_id", type="integer", example="3"),
+     *                  ),
+     *                 @OA\Items(
+     *                      type="object",
+     *                      @OA\Property(property="id", type="integer", example="3"),
+     *                      @OA\Property(property="email", type="string", example="email@test
+     *                      e.com"),
+     *                      @OA\Property(property="privilege_id", type="integer", example="3"),
+     *                  )
+     *              )
+
+     *            )
+     *
+     *     ),
+     *     @OA\Response(
+     *         response=403,
+     *         description="You are not authorized to acess",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+      *             property="message",
+      *             type="string",
+      *             example="You are not authorized to acess",
+      *             description="Somente administradores poderao ver todas as contas do sistema como um collection"
+      *             )
+     *         )
+     *     )
+     * )
+    */
+
+
     public function index(User $user)
     {
 
@@ -35,6 +82,32 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+
+     /**
+      * @OA\Post(
+      *   tags={"Usuario"},
+      *   path="/users",
+      *   summary="Acessa o Store , porem o acesso é somente a admins",
+      *    security={{"sanctumAuth":{}}},
+      *
+      *
+      *   @OA\Response(
+     *         response=403,
+     *         description="You are not authorized to acess",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+      *             property="message",
+      *             type="string",
+      *             example="You are not authorized to acess",
+      *             description="Somente administradores poderao Acessar"
+      *             )
+     *         )
+     *     )
+      *
+      * )
+      */
+
+
     public function store(Request $request)
     {
         try {
@@ -48,6 +121,68 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
+
+    /**
+         * @OA\Get(
+         *   tags={"Usuario"},
+         *   path="/users/{id}",
+         *   summary="Retorna os dados da conta do Usuario logado, Somente admins e atendentes podem ver dados de contas de terceiros",
+         *   security={{"sanctumAuth":{}}},
+         *
+         *   @OA\Response(
+         *     response=200,
+         *     description="OK",
+         *     @OA\JsonContent(
+         *        @OA\Property(property="data", type="object",
+         *          @OA\Property(
+         *            property="id",
+         *            type="integer",
+         *            example="2",
+         *            description="Id do usuario"
+         *          ),
+         *          @OA\Property(
+         *            property="name",
+         *            type="string",
+         *            example="Richard",
+         *            description="Nome do Usuario"
+         *          ),
+         *          @OA\Property(
+         *            property="email",
+         *            type="string",
+         *            example="richard@teste.com",
+         *            description="email do Usuario"
+         *          ),
+         *          @OA\Property(
+         *            property="privilege_id",
+         *            type="integer",
+         *            example="3",
+         *            description="Mostra qual indentificador do usuario, em Role que indica se 3-Cliente,2-Atendente,1-Admin"
+         *          ),
+         *      )
+         *     )
+         *   ),
+         *   @OA\Response(
+         *     response=403,
+         *     description="Forbidden",
+         *     @OA\JsonContent(
+         *
+         *       @OA\Property(
+         *         property="message",
+         *         type="string",
+         *         example="You are not authorized to acess",
+         *         description="Somente administradores poderao verificar informaçoes de outras contas"
+         *      )
+         *     )
+         *
+         *
+         * ),
+         *
+         * )
+         */
+
+
+
+
     public function show()
     {
         $userId = Auth::user()->id;
@@ -63,6 +198,97 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
+
+
+     /**
+      * @OA\PUT(
+      *   tags={"Usuario"},
+      *   path="/users/{id}",
+      *   summary="PUT, Atualiza os dados do usuario, Porem somente admins e atendentes poderam atualizar dados de outras contas",
+      *   security={{"sanctumAuth":{}}},
+      *    @OA\Parameter(
+      *     name="id",
+      *     in="path",
+      *     required=true,
+      *     description="ID do usuário",
+      *     @OA\Schema(type="integer", example=1),
+      *    ),
+      *   @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"name","email", "password"},
+     *             @OA\Property(property="name", type="string", format="name", example="Edward"),
+     *             @OA\Property(property="email", type="string", format="email", example="junior@t.com"),
+     *             @OA\Property(property="password", type="string", format="password", example="password"),
+     *         )
+     *     ),
+      *
+      *   @OA\Response(
+      *       response=200,
+      *       description="OK, Somente admins e atendentes podem alterar outros ID's",
+      *        @OA\JsonContent(
+      *          @OA\Property(property="data", type="object",
+      *            @OA\Property(
+      *              property="name",
+      *              type="string",
+      *              example="jonas",
+      *              description="Novo nome"
+      *            ),
+      *            @OA\Property(
+      *              property="email",
+      *              type="string",
+      *              example="jonas@teste.com",
+      *              description="novo email"
+      *            ),
+      *            @OA\Property(
+      *              property="password",
+      *              type="password",
+      *              example="jonas12345",
+      *              description="Nova senha"
+      *            ),
+      *            @OA\Property(
+      *              property="email_verified_at",
+      *              type="string",
+      *              example="2024-11-25T06:45:36.000000Z",
+      *              description="Data de quando o email foi verificado"
+      *            ),
+      *            @OA\Property(
+      *              property="role_id",
+      *              type="string",
+      *              example="3",
+      *              description="Mostra qual indentificador do usuario, em Role que indica se 3-Cliente,2-Atendente,1-Admin"
+      *            ),
+      *
+      *          )
+      *        )
+      *     ),
+      *   @OA\Response(
+      *          response=401,
+      *          description="Unauthorized",
+      *          @OA\JsonContent(
+      *            @OA\Property(
+      *                  property="message",
+      *                  type="string",
+      *                  example="You are not authorized to acess",
+      *                  description="Se o usuario tentar acessar outro ID alem do seu, Somente admins podem alterar outras contas"
+      *                  )
+      *          )
+      *      ),
+      *          @OA\Response(
+      *            response=404,
+      *            description="Usuário não encontrado",
+      *            @OA\JsonContent(
+      *              @OA\Property(
+      *                 property="message",
+      *                 type="string",
+      *                 example="User not found",
+      *                 description="Se for digitado um ID que nao existe, sera exibido esse erro"
+      *                 )
+       *            )
+      *          )
+      *
+      * )
+      */
     public function update(StoreUserRequest $request, string $id)
     {
         $user = User::findOrFail($id);
