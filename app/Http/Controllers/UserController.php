@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUserRequest;
 use App\Http\Resources\UsersResource;
 use App\Models\User;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -62,23 +63,13 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(StoreUserRequest $request, string $id)
     {
-        $user = User::find($id);
+        $user = User::findOrFail($id);
 
-        if (!$user) {
-            return response()->json([
-                'message' => 'User not found'
-            ],404);
-        }
+        $validatorData = $request->validated();
 
-        $request->validate([
-            'name' => ['sometimes', 'string'],
-            'email' => ['sometimes', 'email', Rule::unique('users')->ignore($user)],
-            'password' => ['sometimes', 'string','min:6'],
-        ]);
-
-        $user->update($request->only(['name','email','password']));
+        $user->update($validatorData);
 
         return new UsersResource($user);
     }
