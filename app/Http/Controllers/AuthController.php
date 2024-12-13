@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginPostRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Resources\UsersResource;
 use App\Models\User;
@@ -103,12 +104,9 @@ class AuthController extends Controller
      */
 
 
-    public function login(Request $request)
+    public function login(LoginPostRequest $request)
     {
-        $request->validate([
-            'email' => 'required|string|email',
-            'password' => 'required|string'
-        ]);
+
         $credentials = $request->only(['email', 'password']);
 
         if (Auth::attempt($credentials)) {
@@ -146,11 +144,7 @@ class AuthController extends Controller
     {
         $validateData = $request->validated();
 
-        //  $user = User::create([
-        //      'name'=>$request->input('name'),
-        //      'email'=>$request->input('email'),
-        //      'password'=>Hash::make($request->input('password'))
-        //  ]);
+
         $user = User::create($validateData);
 
 
