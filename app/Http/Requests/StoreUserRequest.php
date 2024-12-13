@@ -21,16 +21,16 @@ class StoreUserRequest extends FormRequest
      */
     public function rules(): array
     {
+
+        $userId = $this->route('user') ?? null;
+
         $rules =  [
             'name'=> ['required','string','max:255','regex:/^[a-zA-ZÀ-ÿ\s]+$/u'],
-            'email'=>'required|string|unique:users,email',
+            'email'=>'required|string|unique:users,email,'. $userId,
             'password'=>'required|min:8',
         ];
 
-        if ($this->isMethod('patch') || $this->isMethod('post')) {
-            $rules['email'] = 'required|email|unique:users,email';
-            $rules['password']='required|string|min:8';
-        }
+
 
         return $rules;
 
@@ -39,7 +39,7 @@ class StoreUserRequest extends FormRequest
 
     public function messages(): array
     {
-        return[
+        $messages = [
             'name.required'=>'O campo nome é Obrigatorio',
             'name.string'=>'O nome deve ser um texto',
             'name.regex'=>'O nome deve conter apenas letras.',
@@ -50,5 +50,7 @@ class StoreUserRequest extends FormRequest
             'password.min'=>'A senha deve conter no minimo 8 caracteres',
 
         ];
+
+        return $messages;
     }
 }
