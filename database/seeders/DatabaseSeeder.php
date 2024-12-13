@@ -23,10 +23,10 @@ class DatabaseSeeder extends Seeder
             'privilege_id' => '1'
 
         ]);
-//        DB::table('access_privileges')->insert([
-//            ['privilege' => 'Admin'],
-//            ['privilege' => 'Attendant'],
-//            ['privilege' => 'Client'],
-//        ]);
+    //    DB::table('access_privileges')->insert([
+    //        ['privileges' => 'Admin'],
+    //        ['privileges' => 'Attendant'],
+    //        ['privileges' => 'Client'],
+    //    ]);
     }
 }
