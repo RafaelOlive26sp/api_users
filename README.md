@@ -18,7 +18,7 @@ Siga os passos abaixo para configurar o ambiente:
 ### 1. Clonar o Repositório
 
 ```bash
-git clone https://github.com/seu-usuario/seu-repositorio.git
+git clone https://github.com/RafaelOlive26sp/api_users.git
 cd seu-repositorio
 ```
 
