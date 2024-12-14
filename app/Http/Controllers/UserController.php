@@ -297,23 +297,11 @@ class UserController extends Controller
             $validatorData = $request->validated();
 
         }else{
-            $this->authorize('updateAdmin', $user);
+                $this->authorize('updateAdmin', $user);
 
-            $validatorData['privilege_id'] = $request->privilege_id;
-            $validatorData = $request->validated();
-
-//            if ($this->authorize('updateAdmin', $user)) {
-//                $validatorData['privilege_id'] = $request->privilege_id;
-//                $validatorData = $request->validated();
-//            }
-
+                $validatorData['privilege_id'] = $request->privilege_id;
+                $validatorData = $request->validated();
         }
-
-
-
-
-
-//        dd($validatorData);
         $user->update($validatorData);
 
         return new UsersResource($user);
