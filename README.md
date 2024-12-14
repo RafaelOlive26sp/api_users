@@ -95,4 +95,4 @@ Contribuições são bem-vindas! Sinta-se à vontade para abrir issues.
 
 ---
 
-Se precisar de ajuda, entre em contato pelo e-mail: **seu-email@exemplo.com**.
+Se precisar de ajuda, entre em contato pelo e-mail: **oliveirarafael22@outlook.com.br**.
