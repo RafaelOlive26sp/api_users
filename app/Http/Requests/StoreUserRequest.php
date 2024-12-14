@@ -11,6 +11,7 @@ class StoreUserRequest extends FormRequest
      */
     public function authorize(): bool
     {
+
         return true;
     }
 
@@ -25,14 +26,21 @@ class StoreUserRequest extends FormRequest
         $userId = $this->route('user') ?? null;
 
         $rules =  [
-            'name'=> ['required','string','max:255','regex:/^[a-zA-ZÀ-ÿ\s]+$/u'],
-            'email'=>'required|string|unique:users,email,'. $userId,
-            'password'=>'required|min:8',
+            'name'=> ['nullable','string','max:255','regex:/^[a-zA-ZÀ-ÿ\s]+$/u'],
+            'email'=>'nullable|string|email|unique:users,email,'. $userId,
+            'password'=>'nullable|min:8',
         ];
 
+        if (auth()->user()->privilege_id === 1){
 
 
+            $rules['privilege_id'] = ['nullable','integer','in:1,2,3'];
+            $rules['email'] = 'nullable|string|email|unique:users,email,'. $userId;
+        }
         return $rules;
+
+
+
 
 
     }
