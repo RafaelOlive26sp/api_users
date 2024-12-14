@@ -24,7 +24,8 @@ class UserController extends Controller
      /**
      * @OA\GET(
      *     path="/user",
-     *     summary="Realiza uma Collection de todos os usuarios, Somente admins e atendentes podem Realizar essa consulta ",
+     *     summary="Realiza uma Collection de todos os usuarios ",
+      *     description="Somente admins e atendentes podem Realizar essa consulta",
      *     tags={"Usuario"},
      *     security={{"sanctumAuth":{}}},
 
@@ -62,7 +63,19 @@ class UserController extends Controller
       *             description="Somente administradores poderao ver todas as contas do sistema como um collection"
       *             )
      *         )
-     *     )
+     *     ),
+      *     @OA\Response(
+      *           response=401,
+      *           description="Usuario nao autenticado",
+      *         @OA\JsonContent(
+      *             @OA\Property(
+      *                 property="message",
+      *                 type="string",
+      *                 example="Unauthenticated",
+      *                 description="Usuario nao esta autenticado"
+      *             )
+      *         )
+      *      ),
      * )
     */
 
@@ -102,7 +115,19 @@ class UserController extends Controller
       *             description="Somente administradores poderao Acessar"
       *             )
      *         )
-     *     )
+     *     ),
+      *     @OA\Response(
+      *           response=401,
+      *           description="Usuario nao autenticado",
+      *         @OA\JsonContent(
+      *             @OA\Property(
+      *                 property="message",
+      *                 type="string",
+      *                 example="Unauthenticated",
+      *                 description="Usuario nao esta autenticado"
+      *             )
+      *         )
+      *      ),
       *
       * )
       */
@@ -126,7 +151,8 @@ class UserController extends Controller
          * @OA\Get(
          *   tags={"Usuario"},
          *   path="/users/{id}",
-         *   summary="Retorna os dados da conta do Usuario logado, Somente admins e atendentes podem ver dados de contas de terceiros",
+         *   summary="Retorna os dados da conta do Usuario logado.",
+     *      description="Somente admins e atendentes podem ver dados de contas de terceiros",
          *   security={{"sanctumAuth":{}}},
          *
          *   @OA\Response(
@@ -176,6 +202,18 @@ class UserController extends Controller
          *
          *
          * ),
+     *     @OA\Response(
+     *           response=401,
+     *           description="Usuario nao autenticado",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 property="message",
+     *                 type="string",
+     *                 example="Unauthenticated",
+     *                 description="Usuario nao esta autenticado"
+     *             )
+     *         )
+     *      ),
          *
          * )
          */
@@ -204,8 +242,9 @@ class UserController extends Controller
       * @OA\PUT(
       *   tags={"Usuario"},
       *   path="/users/{id}",
-      *   summary="PUT, Atualiza os dados do usuario, Porem somente admins e atendentes poderam atualizar dados de outras contas",
-      *   security={{"sanctumAuth":{}}},
+      *   summary="PUT, Atualiza os dados do usuario, Porem somente admins e atendentes poderam atualizar dados de outras contas,",
+      *   description="O Campo Privilege_id, é autorizado somente para o ADMINISTRADOR ",
+      *     security={{"sanctumAuth":{}}},
       *    @OA\Parameter(
       *     name="id",
       *     in="path",
@@ -215,13 +254,16 @@ class UserController extends Controller
       *    ),
       *   @OA\RequestBody(
      *         required=true,
+      *
      *         @OA\JsonContent(
      *             required={"name","email", "password"},
      *             @OA\Property(property="name", type="string", format="name", example="Edward"),
      *             @OA\Property(property="email", type="string", format="email", example="junior@t.com"),
+     *             @OA\Property(property="privilege_id", type="string",  example="3", description="Somente o administrador podera alterar o privilegio do usuario 3= Cliente, 2= Atendente, 1= Administrador"),
      *             @OA\Property(property="password", type="string", format="password", example="password"),
      *         )
      *     ),
+      *
       *
       *   @OA\Response(
       *       response=200,
@@ -240,30 +282,30 @@ class UserController extends Controller
       *              example="jonas@teste.com",
       *              description="novo email"
       *            ),
-      *            @OA\Property(
-      *              property="password",
-      *              type="password",
-      *              example="jonas12345",
-      *              description="Nova senha"
-      *            ),
       *             @OA\Property(
       *              property="privilege_id",
       *              type="string",
       *              example="3",
       *              description="Mostra qual indentificador do usuario, em Role que indica se 3-Cliente,2-Atendente,1-Admin"
       *            ),
+      *            @OA\Property(
+      *              property="password",
+      *              type="password",
+      *              example="jonas12345",
+      *              description="Se o Usuario atualizar a senha o password sera exibido, caso contrario nao"
+      *            ),
       *
       *          )
       *        )
       *     ),
       *   @OA\Response(
-      *          response=401,
-      *          description="Unauthorized",
+      *          response=403,
+      *          description="Esta ação nao é autorizada",
       *          @OA\JsonContent(
       *            @OA\Property(
       *                  property="message",
       *                  type="string",
-      *                  example="You are not authorized to acess",
+      *                  example="This action is unauthorized",
       *                  description="Se o usuario tentar acessar outro ID alem do seu, Somente admins podem alterar outras contas"
       *                  )
       *          )
@@ -279,7 +321,19 @@ class UserController extends Controller
       *                 description="Se for digitado um ID que nao existe, sera exibido esse erro"
       *                 )
        *            )
-      *          )
+      *          ),
+      *     @OA\Response(
+      *           response=401,
+      *           description="Usuario nao autenticado",
+      *         @OA\JsonContent(
+      *             @OA\Property(
+      *                 property="message",
+      *                 type="string",
+      *                 example="Unauthenticated",
+      *                 description="Usuario nao esta autenticado"
+      *             )
+      *         )
+      *      ),
       *
       * )
       */
@@ -316,7 +370,7 @@ class UserController extends Controller
      *     tags={"Usuario"},
      *    path="/user/{id}",
      *    summary="Excluir um Usuario,Somente admins e atendentes podem excluir contas de terceiros",
-     *    description="Deleta o Usuario, somente admins podem utilizar outros ID's",
+     *    description="Deleta o Usuario, Somente o administrador e Atendente poderá excluir outras contas, caso contrario o propio usuarios podera exluir sua conta.",
      *    security={{"sanctumAuth":{}}},
      *     @OA\Parameter(
      *         name="id",
@@ -346,7 +400,7 @@ class UserController extends Controller
      *              @OA\Property(
      *                  property="message",
      *                  type="string",
-     *                  example="You are not authorized to delete this user",
+     *                  example="You are not authorized to access",
      *                  description="Somente administradores de sistema e atendentes podem excluir contas de terceiros"
      *              )
      *          )
@@ -363,6 +417,18 @@ class UserController extends Controller
      *            )
      *        )
      *     ),
+     *     @OA\Response(
+     *          response=401,
+     *          description="Usuario nao autenticado",
+     *        @OA\JsonContent(
+     *            @OA\Property(
+     *                property="message",
+     *                type="string",
+     *                example="Unauthenticated",
+     *                description="Usuario nao esta autenticado"
+     *            )
+     *        )
+     *     ),
      * )
      */
 
@@ -374,6 +440,12 @@ class UserController extends Controller
             return response()->json([
                 'message' => 'User not found'
             ],404);
+
+        }
+        try {
+            $this->authorize('delete', $user);
+        }catch (AuthorizationException $e) {
+            return response()->json(['message' => 'You are not authorized to access'], 403);
         }
 
         DB::transaction(function () use ($user) {
