@@ -72,7 +72,7 @@ class AuthController extends Controller
      *     ),
      *    @OA\Response(
      *         response=401,
-     *         description="Unauthorized",
+     *         description="Unauthorized, caso tente acessar com algum email que nao exista, ou a senha incorreta",
      *         @OA\JsonContent(
      *             @OA\Property(property="message", type="string", example="Unauthorized")
      *         )
@@ -151,7 +151,7 @@ class AuthController extends Controller
      *     ),
      *     @OA\Response(
      *         response=401,
-     *         description="Não autenticado",
+     *         description="Não autenticado, quando a tentativa de logout e acessada mas o usuario nao esta logado no sistema",
      *         @OA\JsonContent(
      *             @OA\Property(property="message",
      *             type="string",
