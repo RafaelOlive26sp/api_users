@@ -277,12 +277,7 @@ class UserController extends Controller
       *              example="3",
       *              description="Mostra qual indentificador do usuario, em Role que indica se 3-Cliente,2-Atendente,1-Admin"
       *            ),
-      *            @OA\Property(
-      *              property="password",
-      *              type="password",
-      *              example="jonas12345",
-      *              description="Se o Usuario atualizar a senha o password sera exibido, caso contrario nao"
-      *            ),
+      *
       *
       *          )
       *        )
