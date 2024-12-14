@@ -246,14 +246,8 @@ class UserController extends Controller
       *              example="jonas12345",
       *              description="Nova senha"
       *            ),
-      *            @OA\Property(
-      *              property="email_verified_at",
-      *              type="string",
-      *              example="2024-11-25T06:45:36.000000Z",
-      *              description="Data de quando o email foi verificado"
-      *            ),
-      *            @OA\Property(
-      *              property="role_id",
+      *             @OA\Property(
+      *              property="privilege_id",
       *              type="string",
       *              example="3",
       *              description="Mostra qual indentificador do usuario, em Role que indica se 3-Cliente,2-Atendente,1-Admin"
@@ -291,7 +285,13 @@ class UserController extends Controller
       */
     public function update(StoreUserRequest $request, string $id)
     {
-        $user = User::findOrFail($id);
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json([
+                'message' => 'User not found'
+            ],404);
+        }
 
         if ($user->id === auth()->id()){
             $validatorData = $request->validated();
