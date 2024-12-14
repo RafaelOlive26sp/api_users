@@ -13,19 +13,32 @@ use OpenApi\Annotations as OA;
 
 /**
  * @OA\Info(
- *     title="API Desk Documentation",
- *     version="1.0",
- *     description="Documentação da API Desk."
+ *     title="API Users, Documentation",
+ *     version="0.0.1",
+ *     description="Esta API é utilizada para gerenciar um sistema de acessos em geral, oferecendo funcionalidades para autenticação de usuários, gerenciamento de contas, e administração de privilégios. Ela suporta três níveis de acesso: Administrador, Atendente e Cliente.
+  - Administradores podem acessar e modificar dados de qualquer usuário.
+  - Atendentes podem gerenciar contas, como update, deletar usuarios e ver uma lista completa de dados de cada usuario e acessar algumas funcionalidades restritas.
+  - Clientes têm acesso limitado às suas próprias contas.
+
+ **Autenticação**
+ - A API utiliza autenticação baseada em tokens **(Bearer Token via Sanctum)**. Todos os endpoints que requerem autenticação estão devidamente marcados com a configuração de segurança. O objetivo principal desta documentação é ajudar desenvolvedores a integrar suas aplicações com o sistema, fornecendo detalhes sobre requisições, respostas, e exemplos práticos de uso.
+
+  **Principais funcionalidades**:
+  - Registro, login e logout de usuários.
+  - Gestão de privilégios para controle de acesso.
+  - Operações CRUD em usuários (somente admins e atendentes)."
  * )
- * * @OA\SecurityScheme(
- *     securityScheme="sanctumAuth",
- *     type="http",
- *     scheme="bearer",
- *     bearerFormat="JWT"
- * )
+ * @OA\SecurityScheme(
+ *      securityScheme="sanctumAuth",
+ *      type="http",
+ *      scheme="bearer",
+ *      bearerFormat="JWT",
+ *      description="Adicione o token no cabeçalho Authorization no formato: Bearer <seu_token>"
+ *  )
  *  @OA\Server(
  *      url=L5_SWAGGER_CONST_HOST,
  *      description="Demo API Server"
+ *
  * )
  *
  *
