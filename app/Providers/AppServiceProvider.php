@@ -19,6 +19,24 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        $this->ensureDirectoryExists(storage_path('logs'));
+        $this->ensureDirectoryExists(storage_path('framework/cache'));
+        $this->ensureDirectoryExists(storage_path('framework/session'));
+        $this->ensureDirectoryExists(storage_path('framework/views'));
+        $this->ensureDirectoryExists(base_path('bootstrap/cache'));
+
+    }
+
+    /**
+     *@param
+     * @return
+     */
+    protected function ensureDirectoryExists(string $directory): void
+    {
+        if (! is_dir($directory)) {
+            if (!mkdir($directory, 0755, true) && !is_dir($directory)) {
+                throw new \RuntimeException(sprintf('Directory "%s" was not created', $directory));
+            }
+        }
     }
 }
