@@ -41,7 +41,7 @@ class AuthController extends Controller
      *     path="/login",
      *     summary="Efetua o login do usuario",
      *     tags={"Autenticação"},
-     *     description="Atravez de login e senha, efetua o login e acesso as funçoes no sistema",
+     *     description="através de login e senha, efetua o login e acesso as funçoes no sistema",
      *     @OA\RequestBody(
      *         required=true,
      *        @OA\JsonContent(
@@ -64,7 +64,7 @@ class AuthController extends Controller
      *         response=200,
      *         description="Login realizado com sucesso",
      *         @OA\JsonContent(
-     *             @OA\Property(property="access_toke", type="string", example="000|pnQZ3VxhbHU49DWTycJOvZgLaKob6RB5Gn8zVtZsb9b7455a"),
+     *             @OA\Property(property="access_token", type="string", example="000|pnQZ3VxhbHU49DWTycJOvZgLaKob6RB5Gn8zVtZsb9b7455a"),
      *              @OA\Property(property="token_type", type="string", example="Bearer"),
 
      *             )
@@ -136,7 +136,7 @@ class AuthController extends Controller
      * @OA\Post(
      *     path="/logout",
      *     summary="Realiza logout do usuário",
-      *     description="Quando o usuario quiser sair do sistema, ele efetuara o Logout",
+      *     description="Quando o usuario quiser sair do sistema, ele efetuará o Logout",
      *     tags={"Autenticação"},
      *     security={{"sanctumAuth":{}}},
      *     @OA\Response(
@@ -150,14 +150,14 @@ class AuthController extends Controller
      *         )
      *     ),
      *     @OA\Response(
-     *         response=401,
-     *         description="Não autenticado, quando a tentativa de logout e acessada mas o usuario nao esta logado no sistema",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="message",
-     *             type="string",
-     *             example="Unauthenticated")
-     *         )
-     *     )
+      *           response=401,
+      *           description="Usuário não autenticado. Faça login para continuar.",
+      *           @OA\JsonContent(
+      *               @OA\Property(property="message",
+      *               type="string",
+      *               example="Unauthenticated")
+      *           )
+      *       )
      * )
      */
 
@@ -195,7 +195,7 @@ class AuthController extends Controller
      *                  @OA\Property(property="id", type="integer", example="21"),
      *                  @OA\Property(property="name", type="string", example="edward"),
      *                  @OA\Property(property="email", type="string", example="edward@tete.com"),
-     *                  @OA\Property(property="privilege_id", type="string", example="null",description="Por Padrao todos os usuarios teram o privilegio de 3, que significa cliente, no momento o valor apresentado sera como null, mas posteriormente ele é alterado"),
+     *                  @OA\Property(property="privilege_id", type="string", example="null",description="Por Padrao todos os usuarios terão o privilegio de 3, que significa cliente, no momento o valor apresentado sera como null, mas posteriormente ele é alterado"),
      *
      *              )
 
