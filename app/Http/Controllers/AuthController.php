@@ -136,7 +136,7 @@ class AuthController extends Controller
      * @OA\Post(
      *     path="/logout",
      *     summary="Realiza logout do usuário",
-      *     description="Quando o usuario quiser sair do sistema, ele efetuara o Logout"
+      *     description="Quando o usuario quiser sair do sistema, ele efetuara o Logout",
      *     tags={"Autenticação"},
      *     security={{"sanctumAuth":{}}},
      *     @OA\Response(

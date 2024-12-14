@@ -101,6 +101,7 @@ class UserController extends Controller
       *   tags={"Usuario"},
       *   path="/users",
       *   summary="Acessa o Store , porem o acesso é somente a admins",
+      *     description="O metodo Store ainda nao possui funcionalidade, porem atravez de policies o seu acesso é somente para admins e atendentes",
       *    security={{"sanctumAuth":{}}},
       *
       *
