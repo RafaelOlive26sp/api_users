@@ -6,13 +6,13 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Resources\UsersResource;
 use App\Models\User;
 use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Validation\Rule;
-use Illuminate\Auth\Middleware\Authorize;
+use OpenApi\Annotations as OA;
+
+
 
 class UserController extends Controller
 {
@@ -86,7 +86,7 @@ class UserController extends Controller
         try {
             $this->authorize('viewAny', User::class);
         } catch (AuthorizationException $e) {
-            return response()->json(['message' => 'You are not authorized to acess'], 403);
+            return response()->json(['message' => 'You are not authorized to access'], 403);
         }
         return UsersResource::collection(User::all());
     }
@@ -138,9 +138,9 @@ class UserController extends Controller
         try {
             $this->authorize('update', User::class);
         }catch (AuthorizationException $e) {
-            return response()->json(['message' => 'You are not authorized to acess'], 403);
+            return response()->json(['message' => 'You are not authorized to access'], 403);
         }
-        return 'estamos no store';
+        return 'in store';
     }
 
     /**
