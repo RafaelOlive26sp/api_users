@@ -28,4 +28,8 @@ class UserPolicy
     {
         return in_array($user->privilege_id, [1]);
     }
+    public function delete(User $user, User $currentUser): bool
+    {
+        return in_array($user->privilege_id,[1,2])|| $currentUser->id === $user->id;
+    }
 }
