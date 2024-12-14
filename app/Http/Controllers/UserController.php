@@ -293,8 +293,27 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
-        $validatorData = $request->validated();
+        if ($user->id === auth()->id()){
+            $validatorData = $request->validated();
 
+        }else{
+            $this->authorize('updateAdmin', $user);
+
+            $validatorData['privilege_id'] = $request->privilege_id;
+            $validatorData = $request->validated();
+
+//            if ($this->authorize('updateAdmin', $user)) {
+//                $validatorData['privilege_id'] = $request->privilege_id;
+//                $validatorData = $request->validated();
+//            }
+
+        }
+
+
+
+
+
+//        dd($validatorData);
         $user->update($validatorData);
 
         return new UsersResource($user);
