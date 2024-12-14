@@ -39,9 +39,9 @@ class AuthController extends Controller
     /**
      *@OA\Post(
      *     path="/login",
-     *     summary="",
+     *     summary="Efetua o login do usuario",
      *     tags={"Autenticação"},
-     *     description="",
+     *     description="Atravez de login e senha, efetua o login e acesso as funçoes no sistema",
      *     @OA\RequestBody(
      *         required=true,
      *        @OA\JsonContent(
@@ -49,14 +49,12 @@ class AuthController extends Controller
      *              @OA\Property(
      *                  property="email",
      *                  type="string",
-     *
-     *                  example="fulan@teste.com",
+     *                   example="fulan@teste.com",
      *                  description="Input do email do login"
      *              ),
      *              @OA\Property(
      *                  property="password",
      *                  type="string",
-     *
      *                  example="password",
      *                  description="Input da Senha da conta"
      *              )
@@ -138,6 +136,7 @@ class AuthController extends Controller
      * @OA\Post(
      *     path="/logout",
      *     summary="Realiza logout do usuário",
+      *     description="Quando o usuario quiser sair do sistema, ele efetuara o Logout"
      *     tags={"Autenticação"},
      *     security={{"sanctumAuth":{}}},
      *     @OA\Response(
