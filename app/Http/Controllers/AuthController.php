@@ -122,11 +122,7 @@ class AuthController extends Controller
                 'token_type' => 'Bearer',
             ]);
         }
-//        if (!Auth::attempt($credentials)) {
-//            return response()->json([
-//                'message' => 'Unauthorized'
-//            ],401);
-//        }
+
         return response()->json([
             'message' => 'Unauthorized'
 
@@ -172,7 +168,7 @@ class AuthController extends Controller
         $request->user()->tokens()->delete();
         return response()->json([
             'message' => 'Logged out'
-        ],200);
+        ]);
     }
 
 

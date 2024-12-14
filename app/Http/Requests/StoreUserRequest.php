@@ -11,11 +11,7 @@ class StoreUserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-//        $user = auth()->user();
 
-//        if ($this->authorize('updateAdmin',$user)) {
-//            return false;
-//        }
         return true;
     }
 
