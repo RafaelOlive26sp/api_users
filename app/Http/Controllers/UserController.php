@@ -59,7 +59,7 @@ class UserController extends Controller
      *             @OA\Property(
       *             property="message",
       *             type="string",
-      *             example="You are not authorized to acess",
+      *             example="You are not authorized to access",
       *             description="Somente administradores poderao ver todas as contas do sistema como um collection"
       *             )
      *         )
@@ -109,7 +109,7 @@ class UserController extends Controller
       *              @OA\Property(
       *              property="message",
       *              type="string",
-      *              example="You are not authorized to acess",
+      *              example="You are not authorized to access",
       *              description="Somente administradores e atendentes terão acesso a essa função"
       *              )
       *          )
@@ -189,7 +189,7 @@ class UserController extends Controller
      *               @OA\Property(
      *               property="message",
      *               type="string",
-     *               example="You are not authorized to acess",
+     *               example="You are not authorized to access",
      *               description="Somente admistradores do sistema podem acessar informaçoes de outros Usuarios"
      *               )
      *           )
@@ -284,12 +284,12 @@ class UserController extends Controller
       *     ),
       *   @OA\Response(
       *           response=403,
-      *           description="Você não tem permissão para acessar este recurso.",
+      *           description="Você não tem permissão para accessar este recurso.",
       *           @OA\JsonContent(
       *               @OA\Property(
       *               property="message",
       *               type="string",
-      *               example="You are not authorized to acess",
+      *               example="You are not authorized to access",
       *               description="Somente administradores do sistema poderam atualizar outras contas"
       *               )
       *           )
@@ -376,7 +376,7 @@ class UserController extends Controller
      *     ),
      *     @OA\Response(
      *         response=403,
-     *         description="Você não tem permissão para acessar este recurso.",
+     *         description="Você não tem permissão para accessar este recurso.",
      *          @OA\JsonContent(
      *              @OA\Property(
      *                  property="message",
