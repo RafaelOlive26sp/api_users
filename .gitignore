@@ -22,5 +22,5 @@ yarn-error.log
 /.vscode
 /.zed
 /storage/api-docs/api-docs.json
-/resources/views/vendor/l5-swagger/index.blade.php
-/config/l5-swagger.php
+
+
