@@ -19,10 +19,7 @@ return [
                 /*
                  * Edit to include full URL in ui for assets
                  */
-                'swagger_ui' => [
-                    'url' => env('SWAGGER_URL', 'https://api-users-rafael.up.railway.app/api/documentation'),  // Ensure HTTPS is used
-                    'path' => env('SWAGGER_UI_PATH', 'swagger-ui'),
-                ],
+
 
                 'use_absolute_path' => env('L5_SWAGGER_USE_ABSOLUTE_PATH', true),
 
@@ -318,7 +315,7 @@ return [
          * Constants which can be used in annotations
          */
         'constants' => [
-            'L5_SWAGGER_CONST_HOST' => env('L5_SWAGGER_CONST_HOST', 'https://api-users-rafael.up.railway.app/api/documentation'),
+            'L5_SWAGGER_CONST_HOST' => env('L5_SWAGGER_CONST_HOST', env('APP_URL')),
         ],
     ],
 ];

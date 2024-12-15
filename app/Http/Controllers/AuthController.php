@@ -14,7 +14,7 @@ use OpenApi\Annotations as OA;
 /**
  * @OA\Info(
  *     title="API Users, Documentation",
- *     version="0.0.1",
+ *     version="3.1.0",
  *     @OA\Contact(
  *          email="oliveirarafael22@outlook.com.br"
  *      ),
