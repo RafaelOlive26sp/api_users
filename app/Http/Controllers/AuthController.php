@@ -15,6 +15,9 @@ use OpenApi\Annotations as OA;
  * @OA\Info(
  *     title="API Users, Documentation",
  *     version="0.0.1",
+ *     @OA\Contact(
+ *          email="oliveirarafael22@outlook.com.br"
+ *      ),
  *     description="Esta API é utilizada para gerenciar um sistema de acessos em geral, oferecendo funcionalidades para autenticação de usuários, gerenciamento de contas, e administração de privilégios. Ela suporta três níveis de acesso: Administrador, Atendente e Cliente.
   - Administradores podem acessar e modificar dados de qualquer usuário.
   - Atendentes podem gerenciar contas, como update, deletar usuarios e ver uma lista completa de dados de cada usuario e acessar algumas funcionalidades restritas.
