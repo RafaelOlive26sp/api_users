@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -24,6 +26,10 @@ class AppServiceProvider extends ServiceProvider
         $this->ensureDirectoryExists(storage_path('framework/session'));
         $this->ensureDirectoryExists(storage_path('framework/views'));
         $this->ensureDirectoryExists(base_path('bootstrap/cache'));
+
+        if (env('APP_ENV') === 'production') {
+            URL::forceScheme('https');
+        }
 
     }
 
