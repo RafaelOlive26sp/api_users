@@ -10,7 +10,7 @@
     },
     "servers": [
         {
-            "url": "https://api-users-rafael.up.railway.app",
+            "url": "https://api-users-rafael.up.railway.app/api/v1/",
             "description": "Demo API Server"
         }
     ],
