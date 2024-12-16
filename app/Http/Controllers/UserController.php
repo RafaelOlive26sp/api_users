@@ -37,14 +37,13 @@ class UserController extends Controller
      *                 @OA\Items(
      *                      type="object",
      *                      @OA\Property(property="id", type="integer", example="2"),
-     *                      @OA\Property(property="email", type="string", example="email@teste.com"),
+     *                      @OA\Property(property="email", type="string", example="edward@teste.com"),
      *                      @OA\Property(property="privilege_id", type="integer", example="3"),
      *                  ),
      *                 @OA\Items(
      *                      type="object",
      *                      @OA\Property(property="id", type="integer", example="3"),
-     *                      @OA\Property(property="email", type="string", example="email@test
-     *                      e.com"),
+     *                      @OA\Property(property="email", type="string", example="edward@teste.com"),
      *                      @OA\Property(property="privilege_id", type="integer", example="3"),
      *                  )
      *              )
@@ -164,13 +163,13 @@ class UserController extends Controller
          *          @OA\Property(
          *            property="name",
          *            type="string",
-         *            example="Richard",
+         *            example="Edward",
          *            description="Nome do Usuario"
          *          ),
          *          @OA\Property(
          *            property="email",
          *            type="string",
-         *            example="richard@teste.com",
+         *            example="edward@teste.com",
          *            description="email do Usuario"
          *          ),
          *          @OA\Property(
@@ -247,7 +246,7 @@ class UserController extends Controller
      *         @OA\JsonContent(
      *             required={"name","email", "password"},
      *             @OA\Property(property="name", type="string", format="name", example="Edward"),
-     *             @OA\Property(property="email", type="string", format="email", example="junior@t.com"),
+     *             @OA\Property(property="email", type="string", format="email", example="edward@teste.com"),
      *             @OA\Property(property="privilege_id", type="string",  example="3", description="Somente o administrador podera alterar o privilegio do usuario 3= Cliente, 2= Atendente, 1= Administrador"),
      *             @OA\Property(property="password", type="string", format="password", example="password"),
      *         )
@@ -262,13 +261,13 @@ class UserController extends Controller
       *            @OA\Property(
       *              property="name",
       *              type="string",
-      *              example="jonas",
+      *              example="Edward",
       *              description="Novo nome"
       *            ),
       *            @OA\Property(
       *              property="email",
       *              type="string",
-      *              example="jonas@teste.com",
+      *              example="edward@teste.com",
       *              description="novo email"
       *            ),
       *             @OA\Property(

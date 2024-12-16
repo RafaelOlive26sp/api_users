@@ -21,7 +21,7 @@
                     "Autenticação"
                 ],
                 "summary": "Efetua o login do usuario",
-                "description": "através de login e senha, efetua o login e acesso as funçoes no sistema",
+                "description": "Para Logar no sistema, caso nao tenha uma conta, Crie em Resgister, e com o Email e Senha substitua os campos, Clicando em **Try it out**, e Obtenha o token de autorização.",
                 "operationId": "2dd578ff7aba2721293dac66833b27d1",
                 "requestBody": {
                     "required": true,
@@ -36,7 +36,7 @@
                                     "email": {
                                         "description": "Input do email do login",
                                         "type": "string",
-                                        "example": "fulan@teste.com"
+                                        "example": "edward@teste.com"
                                     },
                                     "password": {
                                         "description": "Input da Senha da conta",
@@ -51,7 +51,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Login realizado com sucesso",
+                        "description": "Login realizado com sucesso. Após obter o token de autorização inclua-no no **Authorize**",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -195,7 +195,7 @@
                                     "email": {
                                         "type": "string",
                                         "format": "email",
-                                        "example": "junior@t.com"
+                                        "example": "edward@teste.com"
                                     },
                                     "password": {
                                         "type": "string",
@@ -219,15 +219,15 @@
                                             "properties": {
                                                 "id": {
                                                     "type": "integer",
-                                                    "example": "21"
+                                                    "example": "2"
                                                 },
                                                 "name": {
                                                     "type": "string",
-                                                    "example": "edward"
+                                                    "example": "Edward"
                                                 },
                                                 "email": {
                                                     "type": "string",
-                                                    "example": "edward@tete.com"
+                                                    "example": "edward@teste.com"
                                                 },
                                                 "privilege_id": {
                                                     "description": "Por Padrao todos os usuarios terão o privilegio de 3, que significa cliente, no momento o valor apresentado sera como null, mas posteriormente ele é alterado",
@@ -309,7 +309,7 @@
                                                     },
                                                     "email": {
                                                         "type": "string",
-                                                        "example": "email@teste.com"
+                                                        "example": "edward@teste.com"
                                                     },
                                                     "privilege_id": {
                                                         "type": "integer",
@@ -441,12 +441,12 @@
                                                 "name": {
                                                     "description": "Nome do Usuario",
                                                     "type": "string",
-                                                    "example": "Richard"
+                                                    "example": "Edward"
                                                 },
                                                 "email": {
                                                     "description": "email do Usuario",
                                                     "type": "string",
-                                                    "example": "richard@teste.com"
+                                                    "example": "edward@teste.com"
                                                 },
                                                 "privilege_id": {
                                                     "description": "Mostra qual indentificador do usuario, em Role que indica se 3-Cliente,2-Atendente,1-Admin",
@@ -540,7 +540,7 @@
                                     "email": {
                                         "type": "string",
                                         "format": "email",
-                                        "example": "junior@t.com"
+                                        "example": "edward@teste.com"
                                     },
                                     "privilege_id": {
                                         "description": "Somente o administrador podera alterar o privilegio do usuario 3= Cliente, 2= Atendente, 1= Administrador",
@@ -570,12 +570,12 @@
                                                 "name": {
                                                     "description": "Novo nome",
                                                     "type": "string",
-                                                    "example": "jonas"
+                                                    "example": "Edward"
                                                 },
                                                 "email": {
                                                     "description": "novo email",
                                                     "type": "string",
-                                                    "example": "jonas@teste.com"
+                                                    "example": "edward@teste.com"
                                                 },
                                                 "privilege_id": {
                                                     "description": "Mostra qual indentificador do usuario, em Role que indica se 3-Cliente,2-Atendente,1-Admin",

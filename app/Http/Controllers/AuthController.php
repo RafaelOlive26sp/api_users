@@ -57,7 +57,7 @@ class AuthController extends Controller
      *     path="/login",
      *     summary="Efetua o login do usuario",
      *     tags={"Autenticação"},
-     *     description="através de login e senha, efetua o login e acesso as funçoes no sistema",
+     *     description="Para Logar no sistema, caso nao tenha uma conta, Crie em Resgister, e com o Email e Senha substitua os campos, Clicando em **Try it out**, e Obtenha o token de autorização.",
      *     @OA\RequestBody(
      *         required=true,
      *        @OA\JsonContent(
@@ -65,7 +65,7 @@ class AuthController extends Controller
      *              @OA\Property(
      *                  property="email",
      *                  type="string",
-     *                   example="fulan@teste.com",
+     *                   example="edward@teste.com",
      *                  description="Input do email do login"
      *              ),
      *              @OA\Property(
@@ -78,7 +78,7 @@ class AuthController extends Controller
      *     ),
      *     @OA\Response(
      *         response=200,
-     *         description="Login realizado com sucesso",
+     *         description="Login realizado com sucesso. Após obter o token de autorização inclua-no no **Authorize**",
      *         @OA\JsonContent(
      *             @OA\Property(property="access_token", type="string", example="000|pnQZ3VxhbHU49DWTycJOvZgLaKob6RB5Gn8zVtZsb9b7455a"),
      *              @OA\Property(property="token_type", type="string", example="Bearer"),
@@ -199,7 +199,7 @@ class AuthController extends Controller
      *         @OA\JsonContent(
      *             required={"name","email", "password"},
      *             @OA\Property(property="name", type="string", format="name", example="Edward"),
-     *             @OA\Property(property="email", type="string", format="email", example="junior@t.com"),
+     *             @OA\Property(property="email", type="string", format="email", example="edward@teste.com"),
      *             @OA\Property(property="password", type="string", format="password", example="password"),
      *         )
      *     ),
@@ -208,9 +208,9 @@ class AuthController extends Controller
      *         description="Conta Criada com sucesso",
      *         @OA\JsonContent(
      *             @OA\Property(property="data", type="object",
-     *                  @OA\Property(property="id", type="integer", example="21"),
-     *                  @OA\Property(property="name", type="string", example="edward"),
-     *                  @OA\Property(property="email", type="string", example="edward@tete.com"),
+     *                  @OA\Property(property="id", type="integer", example="2"),
+     *                  @OA\Property(property="name", type="string", example="Edward"),
+     *                  @OA\Property(property="email", type="string", example="edward@teste.com"),
      *                  @OA\Property(property="privilege_id", type="string", example="null",description="Por Padrao todos os usuarios terão o privilegio de 3, que significa cliente, no momento o valor apresentado sera como null, mas posteriormente ele é alterado"),
      *
      *              )
