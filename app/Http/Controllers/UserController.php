@@ -227,7 +227,7 @@ class UserController extends Controller
 
 
      /**
-      * @OA\PUT(
+      * @OA\PATCH(
       *   tags={"Usuario"},
       *   path="/users/{id}",
       *   summary="PUT, Atualiza os dados do usuario, Porem somente admins e atendentes poderam atualizar dados de outras contas,",
@@ -244,7 +244,7 @@ class UserController extends Controller
      *         required=true,
       *
      *         @OA\JsonContent(
-     *
+     *                  type="object",
      *             @OA\Property(property="name", type="string", format="name", example="Edward"),
      *             @OA\Property(property="email", type="string", format="email", example="edward@teste.com"),
      *             @OA\Property(property="privilege_id", type="string",  example="3", description="Somente o administrador podera alterar o privilegio do usuario 3= Cliente, 2= Atendente, 1= Administrador"),
@@ -336,9 +336,12 @@ class UserController extends Controller
         }else{
                 $this->authorize('updateAdmin', $user);
 
-                $validatorData['privilege_id'] = $request->privilege_id;
                 $validatorData = $request->validated();
+                $validatorData['privilege_id'] = $request->privilege_id;
         }
+        $validatorData = array_filter($validatorData, function ($value) {
+            return !is_null($value) && $value !== '';
+        });
         $user->update($validatorData);
 
         return new UsersResource($user);
