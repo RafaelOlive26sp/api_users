@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreUserRequest extends FormRequest
@@ -33,13 +34,19 @@ class StoreUserRequest extends FormRequest
 
         if ($this->isMethod('put') || $this->isMethod('patch')) {
             $userId = $this->route('user');
+
             $isAdmin = auth()->user()->privilege_id ===1;
 
-            if ($isAdmin) {
+            if ($isAdmin && $userId) {
+                $user = User::find($userId);
 
+                if ($user && $user->privilege_id === 1) {
+                    $rules['privilege_id'] = ['prohibited'];
+                }
+            }else{
                 $rules['privilege_id'] = ['sometimes','nullable','integer','in:2,3'];
-                $rules['email'] = 'nullable|string|email|unique:users,email,'. $userId;
             }
+                $rules['email'] = 'nullable|string|email|unique:users,email,'. $userId;
         }
 
         return $rules;
