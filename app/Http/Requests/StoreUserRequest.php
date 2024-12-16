@@ -31,12 +31,17 @@ class StoreUserRequest extends FormRequest
             'password'=>'nullable|min:8',
         ];
 
-//        if (auth()->user()->privilege_id === 1){
-//
-//
-//            $rules['privilege_id'] = ['nullable','integer','in:1,2,3'];
-//            $rules['email'] = 'nullable|string|email|unique:users,email,'. $userId;
-//        }
+        if ($this->isMethod('patch') || $this->isMethod('patch')) {
+            $userId = $this->route('user');
+            $isAdmin = auth()->user()->privilege_id ===1;
+
+            if ($isAdmin) {
+
+                $rules['privilege_id'] = ['nullable','integer','in:1,2,3'];
+                $rules['email'] = 'nullable|string|email|unique:users,email,'. $userId;
+            }
+        }
+
         return $rules;
 
 
