@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Exceptions\AdministratorDeletionException;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -58,7 +60,7 @@ class User extends Authenticatable
 
         static::deleting(function ($user) {
             if ($user->privilege_id === 1) {
-                throw new \Exception("Deleting the administrator account is not allowed ");
+                throw new AdministratorDeletionException();
             }
         });
     }
