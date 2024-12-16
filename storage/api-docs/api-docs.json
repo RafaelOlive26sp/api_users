@@ -168,14 +168,14 @@
                 ]
             }
         },
-        "/register": {
+        "/api/v1/register": {
             "post": {
                 "tags": [
                     "Usuario"
                 ],
                 "summary": "Realiza o cadastro de Usuarios.",
                 "description": "Realiza o cadastro de usuarios para acesso ao sistema .",
-                "operationId": "0903f2e0df1a8857bee538fc055417f0",
+                "operationId": "6796c44e1f6079c411abbfed066c5907",
                 "requestBody": {
                     "required": true,
                     "content": {

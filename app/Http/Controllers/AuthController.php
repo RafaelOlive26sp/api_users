@@ -190,7 +190,7 @@ class AuthController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/register",
+     *     path="/api/v1/register",
      *     summary="Realiza o cadastro de Usuarios.",
      *     tags={"Usuario"},
      *     description="Realiza o cadastro de usuarios para acesso ao sistema .",
