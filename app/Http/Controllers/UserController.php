@@ -314,6 +314,31 @@ class UserController extends Controller
       *              example="Unauthenticated")
       *          )
       *      ),
+      *     @OA\Response(
+     *         response=422,
+     *         description=" Ação nao permitida, Nao é permitido alterar o privilegio da conta.",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 property="message",
+     *                 type="string",
+     *                 example="The privilege id field is prohibited.",
+     *                 description="Mensagem de erro, pois nao é permitido alterar o campo da conta do administrador"
+     *            ),
+     *             @OA\Property(
+     *                     property="errors",
+     *                     type="object",
+     *                 @OA\Property(
+     *                     property="privilege_id",
+     *                     type="array",
+     *                     @OA\Items(
+     *                         type="string",
+     *                         example="The privilege id field is prohibited.",
+     *                         description="Alteração Proibida."
+     *                     )
+     *                 )
+     *             )
+     *         )
+     *     ),
       *
       * )
       */
@@ -391,6 +416,7 @@ class UserController extends Controller
      *              )
      *          )
      *     ),
+     *
      *     @OA\Response(
      *          response=404,
      *          description="Usuario nao encontrado",
