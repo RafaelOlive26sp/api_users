@@ -26,9 +26,9 @@ class StoreUserRequest extends FormRequest
         $userId = $this->route('user') ?? null;
 
         $rules =  [
-            'name'=> ['nullable','string','max:255','regex:/^[a-zA-ZÀ-ÿ\s]+$/u'],
-            'email'=>'nullable|string|email|unique:users,email,'. $userId,
-            'password'=>'nullable|min:8',
+            'name'=> ['sometimes','nullable','string','max:255','regex:/^[a-zA-ZÀ-ÿ\s]+$/u'],
+            'email'=>'sometimes|nullable|string|email|unique:users,email,'. $userId,
+            'password'=>'sometimes|nullable|min:8',
         ];
 
         if ($this->isMethod('put') || $this->isMethod('patch')) {
@@ -37,7 +37,7 @@ class StoreUserRequest extends FormRequest
 
             if ($isAdmin) {
 
-                $rules['privilege_id'] = ['nullable','integer','in:1,2,3'];
+                $rules['privilege_id'] = ['sometimes','nullable','integer','in:2,3'];
                 $rules['email'] = 'nullable|string|email|unique:users,email,'. $userId;
             }
         }
