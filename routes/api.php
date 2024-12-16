@@ -13,7 +13,7 @@ Route::resource('users', UserController::class)->middleware(['auth:sanctum']);
 
 
 Route::post('/login',[AuthController::class,'login'])->middleware(['throttle:30,1'])->name('login');
-Route::post('/register',[AuthController::class,'register'])->name('register');
+Route::post('/register',[AuthController::class,'register'])->middleware(['throttle:5,1'])->name('register');
 
 Route::post('/logout',[AuthController::class,'logout'])->middleware('auth:sanctum')->name('logout');
 });
