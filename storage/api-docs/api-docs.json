@@ -500,13 +500,106 @@
                     }
                 ]
             },
-            "put": {
+            "delete": {
+                "tags": [
+                    "Usuario"
+                ],
+                "summary": "Excluir um Usuario,Somente admins e atendentes podem excluir contas de terceiros",
+                "description": "Deleta o Usuario, Somente o administrador e Atendente poderá excluir outras contas, caso contrario o propio usuarios podera excluir sua conta.",
+                "operationId": "43dd20becb1f47444e484cbb18ce345c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do usuario a ser excluido",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User removed success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Retornara uma mensagem de sucesso que o usuario foi exluido com sucesso",
+                                            "type": "string",
+                                            "example": "User removed success"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Você não tem permissão para accessar este recurso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Somente administradores de sistema e atendentes podem excluir contas de terceiros",
+                                            "type": "string",
+                                            "example": "You are not authorized to access"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Usuario nao encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Se o usuario nao existir no banco de dados ou se ja foi exluido",
+                                            "type": "string",
+                                            "example": "User Not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Usuário não autenticado. Faça login para continuar.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctumAuth": []
+                    }
+                ]
+            },
+            "patch": {
                 "tags": [
                     "Usuario"
                 ],
                 "summary": "PUT, Atualiza os dados do usuario, Porem somente admins e atendentes poderam atualizar dados de outras contas,",
                 "description": "O Campo Privilege_id, é autorizado somente para o ADMINISTRADOR ",
-                "operationId": "ddfe232db1870b82493bf8bd25596d37",
+                "operationId": "6055962f27a3fb88a3445c27693dcf5f",
                 "parameters": [
                     {
                         "name": "id",
@@ -611,99 +704,6 @@
                                             "description": "Se for digitado um ID que nao existe, sera exibido esse erro",
                                             "type": "string",
                                             "example": "User not found"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Usuário não autenticado. Faça login para continuar.",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Unauthenticated"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "sanctumAuth": []
-                    }
-                ]
-            },
-            "delete": {
-                "tags": [
-                    "Usuario"
-                ],
-                "summary": "Excluir um Usuario,Somente admins e atendentes podem excluir contas de terceiros",
-                "description": "Deleta o Usuario, Somente o administrador e Atendente poderá excluir outras contas, caso contrario o propio usuarios podera excluir sua conta.",
-                "operationId": "43dd20becb1f47444e484cbb18ce345c",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID do usuario a ser excluido",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "User removed success",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "description": "Retornara uma mensagem de sucesso que o usuario foi exluido com sucesso",
-                                            "type": "string",
-                                            "example": "User removed success"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Você não tem permissão para accessar este recurso.",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "description": "Somente administradores de sistema e atendentes podem excluir contas de terceiros",
-                                            "type": "string",
-                                            "example": "You are not authorized to access"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Usuario nao encontrado",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "description": "Se o usuario nao existir no banco de dados ou se ja foi exluido",
-                                            "type": "string",
-                                            "example": "User Not found"
                                         }
                                     },
                                     "type": "object"
