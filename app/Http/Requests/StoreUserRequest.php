@@ -31,7 +31,7 @@ class StoreUserRequest extends FormRequest
             'password'=>'nullable|min:8',
         ];
 
-        if ($this->isMethod('patch') || $this->isMethod('patch')) {
+        if ($this->isMethod('put') || $this->isMethod('patch')) {
             $userId = $this->route('user');
             $isAdmin = auth()->user()->privilege_id ===1;
 
