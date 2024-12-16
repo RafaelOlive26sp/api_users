@@ -284,14 +284,14 @@
                 }
             }
         },
-        "/user": {
+        "/users": {
             "get": {
                 "tags": [
                     "Administração"
                 ],
                 "summary": "Realiza uma Collection de todos os usuarios ",
                 "description": "Somente admins e atendentes podem Realizar essa consulta",
-                "operationId": "23679253d16f34d2972249751e3631dd",
+                "operationId": "7e2f5799553ec93c9c43e2a58490d447",
                 "responses": {
                     "200": {
                         "description": "OK, Dados recuperados com sucesso",
@@ -364,9 +364,7 @@
                         "sanctumAuth": []
                     }
                 ]
-            }
-        },
-        "/users": {
+            },
             "post": {
                 "tags": [
                     "Administração"
@@ -526,11 +524,6 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "required": [
-                                    "name",
-                                    "email",
-                                    "password"
-                                ],
                                 "properties": {
                                     "name": {
                                         "type": "string",
@@ -647,16 +640,14 @@
                         "sanctumAuth": []
                     }
                 ]
-            }
-        },
-        "/user/{id}": {
+            },
             "delete": {
                 "tags": [
                     "Usuario"
                 ],
                 "summary": "Excluir um Usuario,Somente admins e atendentes podem excluir contas de terceiros",
                 "description": "Deleta o Usuario, Somente o administrador e Atendente poderá excluir outras contas, caso contrario o propio usuarios podera excluir sua conta.",
-                "operationId": "a56b12a3694a926699892056cdcf8a9e",
+                "operationId": "43dd20becb1f47444e484cbb18ce345c",
                 "parameters": [
                     {
                         "name": "id",

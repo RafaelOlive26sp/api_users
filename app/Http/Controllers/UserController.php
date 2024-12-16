@@ -23,7 +23,7 @@ class UserController extends Controller
 
      /**
      * @OA\GET(
-     *     path="/user",
+     *     path="/users",
      *     summary="Realiza uma Collection de todos os usuarios ",
       *     description="Somente admins e atendentes podem Realizar essa consulta",
      *     tags={"Administração"},
@@ -244,7 +244,7 @@ class UserController extends Controller
      *         required=true,
       *
      *         @OA\JsonContent(
-     *             required={"name","email", "password"},
+     *
      *             @OA\Property(property="name", type="string", format="name", example="Edward"),
      *             @OA\Property(property="email", type="string", format="email", example="edward@teste.com"),
      *             @OA\Property(property="privilege_id", type="string",  example="3", description="Somente o administrador podera alterar o privilegio do usuario 3= Cliente, 2= Atendente, 1= Administrador"),
@@ -317,6 +317,9 @@ class UserController extends Controller
       *
       * )
       */
+
+
+
     public function update(StoreUserRequest $request, string $id)
     {
         $user = User::find($id);
@@ -348,7 +351,7 @@ class UserController extends Controller
     /**
      * @OA\Delete(
      *     tags={"Usuario"},
-     *    path="/user/{id}",
+     *    path="/users/{id}",
      *    summary="Excluir um Usuario,Somente admins e atendentes podem excluir contas de terceiros",
      *    description="Deleta o Usuario, Somente o administrador e Atendente poderá excluir outras contas, caso contrario o propio usuarios podera excluir sua conta.",
      *    security={{"sanctumAuth":{}}},
