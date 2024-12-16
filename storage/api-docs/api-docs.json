@@ -1,0 +1,772 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Users, Documentation",
+        "description": "Esta API é utilizada para gerenciar um sistema de acessos em geral, oferecendo funcionalidades para autenticação de usuários, gerenciamento de contas, e administração de privilégios. Ela suporta três níveis de acesso: Administrador, Atendente e Cliente.\n  - Administradores podem acessar e modificar dados de qualquer usuário.\n  - Atendentes podem gerenciar contas, como update, deletar usuarios e ver uma lista completa de dados de cada usuario e acessar algumas funcionalidades restritas.\n  - Clientes têm acesso limitado às suas próprias contas.\n\n **Autenticação**\n - A API utiliza autenticação baseada em tokens **(Bearer Token via Sanctum)**. Todos os endpoints que requerem autenticação estão devidamente marcados com a configuração de segurança. O objetivo principal desta documentação é ajudar desenvolvedores a integrar suas aplicações com o sistema, fornecendo detalhes sobre requisições, respostas, e exemplos práticos de uso.\n\n  **Principais funcionalidades**:\n  - Registro, login e logout de usuários.\n  - Gestão de privilégios para controle de acesso.\n  - Operações CRUD em usuários (somente admins e atendentes).",
+        "contact": {
+            "email": "oliveirarafael22@outlook.com.br"
+        },
+        "version": "3.1.0"
+    },
+    "servers": [
+        {
+            "url": "http://my-default-host.com",
+            "description": "Demo API Server"
+        }
+    ],
+    "paths": {
+        "/login": {
+            "post": {
+                "tags": [
+                    "Autenticação"
+                ],
+                "summary": "Efetua o login do usuario",
+                "description": "através de login e senha, efetua o login e acesso as funçoes no sistema",
+                "operationId": "2dd578ff7aba2721293dac66833b27d1",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "description": "Input do email do login",
+                                        "type": "string",
+                                        "example": "fulan@teste.com"
+                                    },
+                                    "password": {
+                                        "description": "Input da Senha da conta",
+                                        "type": "string",
+                                        "example": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login realizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "access_token": {
+                                            "type": "string",
+                                            "example": "000|pnQZ3VxhbHU49DWTycJOvZgLaKob6RB5Gn8zVtZsb9b7455a"
+                                        },
+                                        "token_type": {
+                                            "type": "string",
+                                            "example": "Bearer"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized, caso tente acessar com algum email que nao exista, ou a senha incorreta",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Campos obrigatórios não foram preenchidos. Caso um ou mais campos sejam omitidos, será exibida uma mensagem de erro.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Mensagem de erro quando um campo obrigatório não é enviado.",
+                                            "type": "string",
+                                            "example": "O campo email é Obrigatorio"
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "title": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "description": "Lista os erros específicos do campo.",
+                                                        "type": "string",
+                                                        "example": "O campo email é Obrigatorio"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/logout": {
+            "post": {
+                "tags": [
+                    "Autenticação"
+                ],
+                "summary": "Realiza logout do usuário",
+                "description": "Quando o usuario quiser sair do sistema, ele efetuará o Logout",
+                "operationId": "68a6108af04af5e3bc1ea68a6c6f1299",
+                "responses": {
+                    "200": {
+                        "description": "Logout realizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Logged out"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Usuário não autenticado. Faça login para continuar.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctumAuth": []
+                    }
+                ]
+            }
+        },
+        "/register": {
+            "post": {
+                "tags": [
+                    "Usuario"
+                ],
+                "summary": "Realiza o cadastro de Usuarios.",
+                "description": "Realiza o cadastro de usuarios para acesso ao sistema .",
+                "operationId": "0903f2e0df1a8857bee538fc055417f0",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "format": "name",
+                                        "example": "Edward"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "junior@t.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Conta Criada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "21"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "edward"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "edward@tete.com"
+                                                },
+                                                "privilege_id": {
+                                                    "description": "Por Padrao todos os usuarios terão o privilegio de 3, que significa cliente, no momento o valor apresentado sera como null, mas posteriormente ele é alterado",
+                                                    "type": "string",
+                                                    "example": "null"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Campos obrigatórios não foram preenchidos. Caso um ou mais campos sejam omitidos, será exibida uma mensagem de erro.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Mensagem de erro quando um campo obrigatório não é enviado.",
+                                            "type": "string",
+                                            "example": "O campo nome é Obrigatorio (and 1 more error)"
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "name": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "description": "Se o campo for emitido, sera exibido o erro no campo especifico.",
+                                                        "type": "string",
+                                                        "example": "O campo Name é Obrigatorio"
+                                                    }
+                                                },
+                                                "email": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "description": "Caso, o email que o usuario esteja tentando cadastrar ja exista.",
+                                                        "type": "string",
+                                                        "example": "Este email ja esta em uso!"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/user": {
+            "get": {
+                "tags": [
+                    "Administração"
+                ],
+                "summary": "Realiza uma Collection de todos os usuarios ",
+                "description": "Somente admins e atendentes podem Realizar essa consulta",
+                "operationId": "23679253d16f34d2972249751e3631dd",
+                "responses": {
+                    "200": {
+                        "description": "OK, Dados recuperados com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": "2"
+                                                    },
+                                                    "email": {
+                                                        "type": "string",
+                                                        "example": "email@teste.com"
+                                                    },
+                                                    "privilege_id": {
+                                                        "type": "integer",
+                                                        "example": "3"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Você não tem permissão para acessar este recurso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Somente administradores poderao ver todas as contas do sistema como um collection",
+                                            "type": "string",
+                                            "example": "You are not authorized to access"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Usuário não autenticado. Faça login para continuar.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctumAuth": []
+                    }
+                ]
+            }
+        },
+        "/users": {
+            "post": {
+                "tags": [
+                    "Administração"
+                ],
+                "summary": "Acessa o Store , porem o acesso é somente a admins",
+                "description": "O metodo Store ainda nao possui funcionalidade, porem através de policies o seu acesso é somente para admins e atendentes",
+                "operationId": "a1fce870c566eb5fc0cf3178ec5d2fed",
+                "responses": {
+                    "403": {
+                        "description": "Você não tem permissão para acessar este recurso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Somente administradores e atendentes terão acesso a essa função",
+                                            "type": "string",
+                                            "example": "You are not authorized to access"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Usuário não autenticado. Faça login para continuar.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctumAuth": []
+                    }
+                ]
+            }
+        },
+        "/users/{id}": {
+            "get": {
+                "tags": [
+                    "Usuario"
+                ],
+                "summary": "Retorna os dados da conta do Usuario logado.",
+                "description": "Somente admins e atendentes podem ver dados de contas de terceiros",
+                "operationId": "910a0c7cf580e1c605648d82a4e57f46",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "description": "Id do usuario",
+                                                    "type": "integer",
+                                                    "example": "2"
+                                                },
+                                                "name": {
+                                                    "description": "Nome do Usuario",
+                                                    "type": "string",
+                                                    "example": "Richard"
+                                                },
+                                                "email": {
+                                                    "description": "email do Usuario",
+                                                    "type": "string",
+                                                    "example": "richard@teste.com"
+                                                },
+                                                "privilege_id": {
+                                                    "description": "Mostra qual indentificador do usuario, em Role que indica se 3-Cliente,2-Atendente,1-Admin",
+                                                    "type": "integer",
+                                                    "example": "3"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Você não tem permissão para acessar este recurso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Somente admistradores do sistema podem acessar informaçoes de outros Usuarios",
+                                            "type": "string",
+                                            "example": "You are not authorized to access"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Usuário não autenticado. Faça login para continuar.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctumAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Usuario"
+                ],
+                "summary": "PUT, Atualiza os dados do usuario, Porem somente admins e atendentes poderam atualizar dados de outras contas,",
+                "description": "O Campo Privilege_id, é autorizado somente para o ADMINISTRADOR ",
+                "operationId": "ddfe232db1870b82493bf8bd25596d37",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do usuário",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "format": "name",
+                                        "example": "Edward"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "junior@t.com"
+                                    },
+                                    "privilege_id": {
+                                        "description": "Somente o administrador podera alterar o privilegio do usuario 3= Cliente, 2= Atendente, 1= Administrador",
+                                        "type": "string",
+                                        "example": "3"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK, Somente admins e atendentes podem alterar outros ID's",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "name": {
+                                                    "description": "Novo nome",
+                                                    "type": "string",
+                                                    "example": "jonas"
+                                                },
+                                                "email": {
+                                                    "description": "novo email",
+                                                    "type": "string",
+                                                    "example": "jonas@teste.com"
+                                                },
+                                                "privilege_id": {
+                                                    "description": "Mostra qual indentificador do usuario, em Role que indica se 3-Cliente,2-Atendente,1-Admin",
+                                                    "type": "string",
+                                                    "example": "3"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Você não tem permissão para accessar este recurso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Somente administradores do sistema poderam atualizar outras contas",
+                                            "type": "string",
+                                            "example": "You are not authorized to access"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Usuário não encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Se for digitado um ID que nao existe, sera exibido esse erro",
+                                            "type": "string",
+                                            "example": "User not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Usuário não autenticado. Faça login para continuar.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctumAuth": []
+                    }
+                ]
+            }
+        },
+        "/user/{id}": {
+            "delete": {
+                "tags": [
+                    "Usuario"
+                ],
+                "summary": "Excluir um Usuario,Somente admins e atendentes podem excluir contas de terceiros",
+                "description": "Deleta o Usuario, Somente o administrador e Atendente poderá excluir outras contas, caso contrario o propio usuarios podera excluir sua conta.",
+                "operationId": "a56b12a3694a926699892056cdcf8a9e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do usuario a ser excluido",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User removed success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Retornara uma mensagem de sucesso que o usuario foi exluido com sucesso",
+                                            "type": "string",
+                                            "example": "User removed success"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Você não tem permissão para accessar este recurso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Somente administradores de sistema e atendentes podem excluir contas de terceiros",
+                                            "type": "string",
+                                            "example": "You are not authorized to access"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Usuario nao encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Se o usuario nao existir no banco de dados ou se ja foi exluido",
+                                            "type": "string",
+                                            "example": "User Not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Usuário não autenticado. Faça login para continuar.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctumAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "sanctumAuth": {
+                "type": "http",
+                "description": "Adicione o token no cabeçalho Authorization no formato: Bearer <seu_token>",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Autenticação",
+            "description": "Autenticação"
+        },
+        {
+            "name": "Usuario",
+            "description": "Usuario"
+        },
+        {
+            "name": "Administração",
+            "description": "Administração"
+        }
+    ]
+}
