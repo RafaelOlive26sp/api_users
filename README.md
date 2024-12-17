@@ -9,6 +9,11 @@ Esta API é utilizada para gerenciar um sistema de acessos em geral, oferecendo 
 Autenticação
 
     A API utiliza autenticação baseada em tokens (Bearer Token via Sanctum). Todos os endpoints que requerem autenticação estão devidamente marcados com a configuração de segurança. O objetivo principal desta documentação é ajudar desenvolvedores a integrar suas aplicações com o sistema, fornecendo detalhes sobre requisições, respostas, e exemplos práticos de uso.
+    O Laravel Sanctum é um sistema de autenticação leve que permite gerenciar autenticação via tokens para APIs. Ele suporta autenticação baseada em SPA (Single Page Applications),
+
+Middleware
+
+    A API utiliza o middleware throttle para limitar a quantidade de requisições em determinados endpoints.
 
 Principais funcionalidades:
 
