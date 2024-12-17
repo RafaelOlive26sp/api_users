@@ -726,6 +726,36 @@
                                 }
                             }
                         }
+                    },
+                    "422": {
+                        "description": " Ação nao permitida, Nao é permitido alterar o privilegio da conta.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Mensagem de erro, pois nao é permitido alterar o campo da conta do administrador",
+                                            "type": "string",
+                                            "example": "The privilege id field is prohibited."
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "privilege_id": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "description": "Alteração Proibida.",
+                                                        "type": "string",
+                                                        "example": "The privilege id field is prohibited."
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
