@@ -73,7 +73,15 @@ class AuthController extends Controller
      *                  type="string",
      *                  example="password",
      *                  description="Input da Senha da conta"
-     *              )
+     *              ),
+     *               @OA\Examples(
+     *                    example="Administrador",
+     *                    value={
+     *                        "email": "Rafael@admin.com",
+     *                        "password": "password"
+     *                    },
+     *                    summary="Exemplo de login para o Administrador"
+     *                )
      *        )
      *     ),
      *     @OA\Response(

@@ -10,7 +10,7 @@
     },
     "servers": [
         {
-            "url": "https://api-users-rafael.up.railway.app/api/v1/",
+            "url": "http://127.0.0.1:8000/api/v1/",
             "description": "Demo API Server"
         }
     ],
@@ -45,6 +45,15 @@
                                     }
                                 },
                                 "type": "object"
+                            },
+                            "examples": {
+                                "Administrador": {
+                                    "summary": "Exemplo de login para o Administrador",
+                                    "value": {
+                                        "email": "Rafael@admin.com",
+                                        "password": "password"
+                                    }
+                                }
                             }
                         }
                     }
