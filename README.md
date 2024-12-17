@@ -1,6 +1,8 @@
 # Documentação da API
 
-Esta API é utilizada para gerenciar um sistema de acessos em geral, oferecendo funcionalidades para autenticação de usuários, gerenciamento de contas, e administração de privilégios. Ela suporta três níveis de acesso: Administrador, Atendente e Cliente.
+Esta API é utilizada para gerenciar um sistema de acessos em geral, oferecendo funcionalidades para autenticação de usuários, gerenciamento de contas, e administração de privilégios. Ela suporta três níveis de acesso: Administrador, 
+
+Atendente e Cliente.
 
     Administradores podem acessar e modificar dados de qualquer usuário.
     Atendentes podem gerenciar contas, como update, deletar usuarios e ver uma lista completa de dados de cada usuario e acessar algumas funcionalidades restritas.
@@ -20,6 +22,10 @@ Principais funcionalidades:
     Registro, login e logout de usuários.
     Gestão de privilégios para controle de acesso.
     Operações CRUD em usuários (somente admins e atendentes).
+
+Futuras Atualizações:
+
+    Verificação da conta atraves do e-mail.
 
 
 ## Requisitos
