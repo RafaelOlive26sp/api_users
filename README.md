@@ -80,12 +80,12 @@ Para iniciar o servidor local, utilize o comando:
 php artisan serve
 ```
 
-Acesse a API em [http://localhost:8000](http://localhost:8000).
+Acesse a API em [https://api-users-rafael.up.railway.app/api/documentation#/](https://api-users-rafael.up.railway.app/api/documentation#/).
 
 
 ## Endpoints
 
-Consulte a [documentação Swagger](http://localhost:8000/api/documentation) para visualizar os endpoints disponíveis.
+Consulte a [documentação Swagger](https://api-users-rafael.up.railway.app/api/documentation#/) para visualizar os endpoints disponíveis.
 
 ## Contribuição
 
