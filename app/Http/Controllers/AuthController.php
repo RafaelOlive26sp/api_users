@@ -6,6 +6,7 @@ use App\Http\Requests\LoginPostRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Resources\UsersResource;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use OpenApi\Annotations as OA;
@@ -268,8 +269,11 @@ class AuthController extends Controller
         $validateData = $request->validated();
 
 
+
+
         $user = User::create($validateData);
 
+        event(new Registered($user));
 
 
 
