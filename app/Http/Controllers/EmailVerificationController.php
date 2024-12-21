@@ -14,7 +14,7 @@ class EmailVerificationController extends Controller
         $user = User::find($id);
 
         if (!$user) {
-            return response()->json(['message' => 'User Not Found'], 404);
+            return response()->view('email.verified',['message' => 'User Not Found','status'=> 401], 404);
         }
         if (!hash_equals(sha1($user->email),$hash)) {
 //            return response()->json(['message' => 'Invalid or expired verification link'], 401);
