@@ -25,8 +25,15 @@ Principais funcionalidades:
 
 Futuras Atualizações:
 
-    Verificação da conta atraves do e-mail.
+    Verificação da conta atraves do e-mail.✅
+---
+## Changelog
 
+### [v0.0.1] - 2024-12-21
+- Adicionado: Verificação de conta por e-mail.
+
+
+---
 
 ## Requisitos
 
