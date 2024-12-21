@@ -32,7 +32,11 @@ Futuras Atualizações:
 ### [v0.0.1] - 2024-12-21
 - Adicionado: Verificação de conta por e-mail.
 
-## Demonstração
+
+## Demonstração do Vídeo
+
+Veja a demonstração completa no vídeo [aqui](https://rafaelolive26sp.github.io/api_users/ApresentationEmail).
+
 
 
 ---
