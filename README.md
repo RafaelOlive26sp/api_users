@@ -33,14 +33,9 @@ Futuras Atualizações:
 - Adicionado: Verificação de conta por e-mail.
 
 
-## Demonstração do Vídeo
+## Demonstração da Funcionalidade
 
 Veja a demonstração completa no vídeo [aqui](https://player.vimeo.com/video/1041435231?h=c1003102b1).
-
-
-
-
-
 
 ---
 
