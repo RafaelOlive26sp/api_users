@@ -31,7 +31,12 @@ Futuras Atualizações:
 
 ### [v0.0.1] - 2024-12-21
 - Adicionado: Verificação de conta por e-mail.
+## Demonstração
 
+<video src="assets/videos/verified_emails.gif" controls width="600">
+Seu navegador não suporta vídeos embutidos. 
+<a href="assets/videos/verified_emails.gif">Clique aqui para baixar o vídeo.</a>
+</video>
 
 ---
 
