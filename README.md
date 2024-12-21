@@ -36,7 +36,7 @@ Futuras Atualizações:
 ## Demonstração da Funcionalidade
 
 Veja a demonstração completa no vídeo [aqui](https://player.vimeo.com/video/1041435231?h=c1003102b1).
-
+ - Para o teste foi utilizado o MailTrap, e cada açao do usuario é exibido uma mensagem amigavel. 
 ---
 
 ## Requisitos
