@@ -2,7 +2,8 @@
 
 namespace App\Providers;
 
-
+use Illuminate\Auth\Notifications\VerifyEmail;
+use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
@@ -30,6 +31,16 @@ class AppServiceProvider extends ServiceProvider
         if (env('APP_ENV') === 'production') {
             URL::forceScheme('https');
         }
+
+        VerifyEmail::toMailUsing(function (object $notifiable, string $url) {
+           return (new MailMessage)
+           ->subject('Confirmação de E-mail')
+           ->greeting('Olá!')
+           ->line('Clique no botão abaixo para verificar seu endereço de e-mail.')
+           ->action('Verificar E-mail', $url)
+           ->line('Se você não criou esta conta, ignore este e-mail.')
+           ->salutation('Att, Equipe Minha Aplicação');
+        });
 
     }
 
