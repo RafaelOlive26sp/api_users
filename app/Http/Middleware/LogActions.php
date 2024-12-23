@@ -23,7 +23,7 @@ class LogActions
                 'action' => $request->method(),
                 'endpoint' => $request->path(),
                 'request_data' => $request->all(),
-                'response_data' => $response->getContent(),
+                'response_data' => json_encode(['status' => 'success']),
                 'ip_address' => $request->ip(),
             ]);
             return $response;
