@@ -66,6 +66,18 @@ class User extends Authenticatable implements MustVerifyEmail
                 throw new AdministratorDeletionException();
             }
         });
+
+        static::created(function ($user) {
+            ActionLog::create([
+                'user_id' => $user->id,
+                'action' => 'create',
+                'endpoint' => 'api/users',
+                'request_data' => json_encode($user->toArray()),
+                'response_data' => json_encode($user->toArray()),
+                'ip_address' => request()->ip(),
+            ]);
+        });
+
     }
 
 }
