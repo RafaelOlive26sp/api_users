@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LoginPostRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Resources\UsersResource;
+use App\Models\ActionLog;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -272,6 +273,16 @@ class AuthController extends Controller
 
 
         $user = User::create($validateData);
+
+        $log = ActionLog::where('user_id', $user->id)->latest()->first();
+
+        if ($log) {
+            $log->update([
+                'endpoint'=> $request->path(),
+            ]);
+        }
+
+
 
         event(new Registered($user));
 
