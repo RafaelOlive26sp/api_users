@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\DataStatisticsResource;
-use App\Models\User;
+
 use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
+
 
 class StatisticsDataUsersController extends Controller
 {
@@ -17,13 +17,17 @@ class StatisticsDataUsersController extends Controller
         $oldestUser = DB::table('users')->orderBy('created_at', 'asc')->first();
         $verifiedAccounts = DB::table('users')->whereNotNull('email_verified_at')->count();
         $unverifiedAccounts = DB::table('users')->whereNull('email_verified_at')->count();
+        $verifiedUsers = DB::table('users')->whereNotNull('email_verified_at')->get(['id','name','email','created_at']);
+        $unverifiedUsers = DB::table('users')->whereNull('email_verified_at')->get(['id','name','email','created_at']);
 
         return new DataStatisticsResource([
             'totalAccounts' => $totalAccounts,
             'newestUser' => $newestUser,
             'oldestUser' => $oldestUser,
             'verifiedAccounts' => $verifiedAccounts,
-            'unverifiedAccounts' => $unverifiedAccounts
+            'unverifiedAccounts' => $unverifiedAccounts,
+            'unverifiedUsers' => $unverifiedUsers,
+            'verifiedUsers' => $verifiedUsers,
         ]);
     }
 }
