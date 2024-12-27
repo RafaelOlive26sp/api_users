@@ -31,6 +31,22 @@ class DataStatisticsResource extends JsonResource
                 'email' =>$this['oldestUser']->email,
                 'created_at' =>$this['oldestUser']->created_at,
             ]: null,
+            'verifiedUsers' => $this['verifiedUsers']->map(function ($user) {
+                return [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'created_at' => $user->created_at,
+                ];
+            }),
+            'unverifiedUsers' => $this['unverifiedUsers']->map(function ($user) {
+                return [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'created_at' => $user->created_at,
+                ];
+            }),
         ];
     }
 }
