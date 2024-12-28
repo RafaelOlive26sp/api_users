@@ -11,8 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use OpenApi\Annotations as OA;
-
-
+use PhpParser\Node\Stmt\TryCatch;
 
 class UserController extends Controller
 {
@@ -370,6 +369,13 @@ class UserController extends Controller
         $user->update($validatorData);
 
         return new UsersResource($user);
+    }
+
+
+
+
+    public function logAccess(){
+
     }
 
     /**
