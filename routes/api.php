@@ -13,6 +13,7 @@ Route::prefix('v1')->group(function () {
 Route::resource('users', UserController::class)->middleware(['auth:sanctum']);
 Route::post('/email/resend', [EmailVerificationController::class, 'resend'])->middleware('throttle:6,1')->name('verification.resend');
 Route::get('statisticdata',[StatisticsDataUsersController::class, 'index'])->middleware('auth:sanctum')->name('data');
+Route::get('/stats/logs',[StatisticsDataUsersController::class, 'lgostats'])->middleware('auth:sanctum')->name('logs');
 
 
 Route::post('/login',[AuthController::class,'login'])->middleware(['throttle:30,1'])->name('login');
