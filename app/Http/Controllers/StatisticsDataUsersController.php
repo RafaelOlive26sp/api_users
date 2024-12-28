@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\DataStatisticsResource;
 
+use App\Http\Resources\StastLogsResource;
+use App\Models\ActionLog;
 use Illuminate\Support\Facades\DB;
 
 
@@ -29,5 +31,12 @@ class StatisticsDataUsersController extends Controller
             'unverifiedUsers' => $unverifiedUsers,
             'verifiedUsers' => $verifiedUsers,
         ]);
+    }
+    public function logstats()
+    {
+//        $logs = DB::table('action_logs')->count();
+        $logs = ActionLog::all()->toArray();
+
+        return new StastLogsResource([$logs]);
     }
 }
