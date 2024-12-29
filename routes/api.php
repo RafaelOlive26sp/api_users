@@ -12,7 +12,7 @@ Route::prefix('v1')->group(function () {
 
 Route::resource('users', UserController::class)->middleware(['auth:sanctum']);
 Route::post('/email/resend', [EmailVerificationController::class, 'resend'])->middleware('throttle:6,1')->name('verification.resend');
-Route::get('statisticdata',[StatisticsDataUsersController::class, 'index'])->middleware('auth:sanctum')->name('data');
+Route::get('/stats/data',[StatisticsDataUsersController::class, 'index'])->middleware('auth:sanctum')->name('data');
 Route::get('/stats/logs',[StatisticsDataUsersController::class, 'logstats'])->middleware('auth:sanctum')->name('logs');
 
 
