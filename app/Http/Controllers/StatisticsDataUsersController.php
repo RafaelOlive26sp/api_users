@@ -34,9 +34,26 @@ class StatisticsDataUsersController extends Controller
     }
     public function logstats()
     {
-//        $logs = DB::table('action_logs')->count();
-        $logs = ActionLog::all()->toArray();
+        //$logs = DB::table('action_logs')->count();
+        // $logs = ActionLog::all()->toArray();
 
-        return new StastLogsResource([$logs]);
+        $totalLogs = DB::table('action_logs')->count();
+        $logs = DB::table('action_logs')->get(['id','user_id','action','ip_address','endpoint','request_data','response_data']);
+        $newsLogs = DB::table('action_logs')->orderBy('created_at', 'desc')->first();
+        $oldLogs = DB::table('action_logs')->orderBy('created_at', 'asc')->first();
+
+
+
+        return new StastLogsResource([
+            'totalLogs' => $totalLogs,
+            'logs'=> $logs,
+            'newsLogs'=>$newsLogs,
+            'oldLogs'=>$oldLogs,
+
+
+        ]);
+
+
+
     }
 }
