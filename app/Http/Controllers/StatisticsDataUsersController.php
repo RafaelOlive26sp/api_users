@@ -34,8 +34,7 @@ class StatisticsDataUsersController extends Controller
     }
     public function logstats()
     {
-        //$logs = DB::table('action_logs')->count();
-        // $logs = ActionLog::all()->toArray();
+
 
         $totalLogs = DB::table('action_logs')->count();
         $logs = DB::table('action_logs')->get(['id','user_id','action','ip_address','endpoint','request_data','response_data']);
