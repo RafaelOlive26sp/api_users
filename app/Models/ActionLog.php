@@ -19,6 +19,7 @@ class ActionLog extends Model
         'request_data',
         'response_data',
         'ip_address',
+        'created_at',
     ];
 
 
