@@ -74,7 +74,7 @@ class User extends Authenticatable implements MustVerifyEmail
                 'endpoint' => 'api/users',
                 'request_data' => json_encode($user->toArray()),
                 'response_data' => json_encode(['status'=>'success']),
-                'ip_address' => request()->ip(),
+                'ip_address' => request()?->ip() ?? 'unknown',
             ]);
         });
 
