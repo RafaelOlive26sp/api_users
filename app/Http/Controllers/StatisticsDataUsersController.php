@@ -36,11 +36,12 @@ class StatisticsDataUsersController extends Controller
     {
 
 
-        $totalLogs = DB::table('action_logs')->count();
-        $logs = DB::table('action_logs')->get(['id','user_id','action','ip_address','endpoint','request_data','response_data']);
-        $newsLogs = DB::table('action_logs')->orderBy('created_at', 'desc')->first();
-        $oldLogs = DB::table('action_logs')->orderBy('created_at', 'asc')->first();
+        $logs = DB::table('action_logs')->select(['id','user_id','action','ip_address','endpoint','request_data','response_data','created_at'])->paginate(10);
 
+
+        $totalLogs = ActionLog::count();
+        $newsLogs = ActionLog::latest()->first();
+        $oldLogs = ActionLog::oldest()->first();
 
 
         return new StastLogsResource([
@@ -48,6 +49,7 @@ class StatisticsDataUsersController extends Controller
             'logs'=> $logs,
             'newsLogs'=>$newsLogs,
             'oldLogs'=>$oldLogs,
+
 
 
         ]);
