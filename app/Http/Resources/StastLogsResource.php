@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -26,29 +27,41 @@ class StastLogsResource extends JsonResource
                     'ip_address' => $log->ip_address,
                     'request_data' => json_decode($log->request_data, true) ,
                     'response_data' => json_decode($log->response_data,true),
-
+                    'created_at' => Carbon::parse($log->created_at)->format('d/m/Y H:i:s'),
                 ];
             }) ,
-            'newsLogs' => $this['newsLogs']? [
-                'id' => $this['newsLogs']->id,
-                'user_id' => $this['newsLogs']->user_id,
-                'action' => $this['newsLogs']->action,
-                'endpoint' => $this['newsLogs']->endpoint,
-                'ip_address' => $this['newsLogs']->ip_address,
-                'request_data' => json_decode($this->resource['newsLogs']->request_data, true),
-                'response_data' => json_decode($this->resource['newsLogs']->response_data, true),
-            ]: null,
-            'oldLogs' => $this['oldLogs']? [
-                'id' => $this['oldLogs']->id,
-                'user_id' => $this['oldLogs']->user_id,
-                'action' => $this['oldLogs']->action,
-                'endpoint' => $this['oldLogs']->endpoint,
-                'ip_address' => $this['oldLogs']->ip_address,
-                'request_data' => json_decode($this->resource['oldLogs']->request_data, true),
-                'response_data' => json_decode($this->resource['oldLogs']->response_data, true),
-            ]: null,
+            'pagination' =>[
+                'current_page'=> $this->resource['logs']->currentPage(),
+                'last_page'=> $this->resource['logs']->lastPage(),
+                'per_page'=> $this->resource['logs']->perPage(),
+                'total'=> $this->resource['logs']->total(),
+                'next_page_url'=> $this->resource['logs']->nextPageUrl(),
+                'prev_page_url'=> $this->resource['logs']->previousPageUrl(),
+            ],
+            'newsLogs' => $this->formatLog($this['newsLogs']),
+            'oldLogs' => $this->formatLog($this['oldLogs']),
+
         ];
     }
+    private function formatLog($log)
+    {
+        if (!$log)
+        {
+            return null;
+        }
+
+        return [
+            'id' => $log->id,
+            'user_id' => $log->user_id,
+            'action' => $log->action,
+            'endpoint' => $log->endpoint,
+            'ip_address' => $log->ip_address,
+            'request_data' => json_decode($log->request_data, true),
+            'response_data' => json_decode($log->response_data, true),
+            'created_at' => Carbon::parse($log->created_at)->format('d/m/Y H:i:s'),
+        ];
+    }
+
 }
 
 
