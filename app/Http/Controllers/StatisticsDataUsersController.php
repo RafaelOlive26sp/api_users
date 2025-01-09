@@ -7,6 +7,7 @@ use App\Http\Resources\DataStatisticsResource;
 
 use App\Http\Resources\StastLogsResource;
 use App\Models\ActionLog;
+use http\Env\Request;
 use Illuminate\Support\Facades\DB;
 
 
@@ -34,7 +35,7 @@ class StatisticsDataUsersController extends Controller
     }
     public function logstats()
     {
-
+//
 
         $logs = DB::table('action_logs')->select(['id','user_id','action','ip_address','endpoint','request_data','response_data','created_at'])->paginate(10);
 
