@@ -19,6 +19,11 @@ class UserPolicy
         return in_array($user->privilege_id,[1,2]);
 
     }
+    public function view(User $authUser,User $targetUser):bool
+    {
+        return in_array($authUser->privilege_id,[1,2]) || $authUser->id === $targetUser->id;
+
+    }
 
     public function update(User $user): bool
     {
