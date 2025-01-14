@@ -23,6 +23,7 @@ class DataStatisticsResource extends JsonResource
                 'name' => $this['newestUser']->name,
                 'email' => $this['newestUser']->email,
                 'created_at' => $this['newestUser']->created_at,
+                'updated_at' => $this['newestUser']->updated_at,
 
             ] : null,
             'oldestUser' => $this['oldestUser'] ? [
@@ -30,6 +31,7 @@ class DataStatisticsResource extends JsonResource
                 'name' =>$this['oldestUser']->name,
                 'email' =>$this['oldestUser']->email,
                 'created_at' =>$this['oldestUser']->created_at,
+                'updated_at' =>$this['oldestUser']->updated_at,
             ]: null,
             'verifiedUsers' => $this['verifiedUsers']->map(function ($user) {
                 return [
@@ -37,6 +39,7 @@ class DataStatisticsResource extends JsonResource
                     'name' => $user->name,
                     'email' => $user->email,
                     'created_at' => $user->created_at,
+                    'updated_at' => $user->updated_at,
                 ];
             }),
             'unverifiedUsers' => $this['unverifiedUsers']->map(function ($user) {
@@ -45,6 +48,7 @@ class DataStatisticsResource extends JsonResource
                     'name' => $user->name,
                     'email' => $user->email,
                     'created_at' => $user->created_at,
+                    'updated_at' => $user->updated_at,
                 ];
             }),
         ];
