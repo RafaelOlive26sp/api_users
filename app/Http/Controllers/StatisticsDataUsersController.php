@@ -20,8 +20,8 @@ class StatisticsDataUsersController extends Controller
         $oldestUser = DB::table('users')->orderBy('created_at', 'asc')->first();
         $verifiedAccounts = DB::table('users')->whereNotNull('email_verified_at')->count();
         $unverifiedAccounts = DB::table('users')->whereNull('email_verified_at')->count();
-        $verifiedUsers = DB::table('users')->whereNotNull('email_verified_at')->get(['id','name','email','created_at']);
-        $unverifiedUsers = DB::table('users')->whereNull('email_verified_at')->get(['id','name','email','created_at']);
+        $verifiedUsers = DB::table('users')->whereNotNull('email_verified_at')->get(['id','name','email','created_at','updated_at']);
+        $unverifiedUsers = DB::table('users')->whereNull('email_verified_at')->get(['id','name','email','created_at','updated_at']);
 
         return new DataStatisticsResource([
             'totalAccounts' => $totalAccounts,
