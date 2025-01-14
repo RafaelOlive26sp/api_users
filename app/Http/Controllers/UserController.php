@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use OpenApi\Annotations as OA;
 use PhpParser\Node\Stmt\TryCatch;
+use function Laravel\Prompts\error;
 
 class UserController extends Controller
 {
@@ -208,13 +209,22 @@ class UserController extends Controller
 
 
 
-    public function show()
+    public function show(User $user)
     {
-        $userId = Auth::user()->id;
+        // Quando usando o USER no parametro na funcao o laravel faz a pesquisa no bd automaticamente
 
-        $accountData = User::where('id',$userId)->firstOrFail();
+        try {
+            // Autoriza o acesso ao usuário específico
+            $this->authorize('view', $user);
 
-        return new UsersResource($accountData);
+            // Retorna diretamente os dados do usuário
+            return new UsersResource($user);
+
+        } catch (AuthorizationException $e) {
+            // Retorna erro 403 em caso de autorização negada
+            return response()->json(['message' => 'You are not authorized to access'], 403);
+        }
+
 
     }
 
