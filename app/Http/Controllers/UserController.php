@@ -209,7 +209,7 @@ class UserController extends Controller
 
 
 
-    public function show(User $user)
+
     public function show(User $user)
     {
         // Quando usando o USER no parametro na funcao o laravel faz a pesquisa no bd automaticamente
