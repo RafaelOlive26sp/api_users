@@ -2,19 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+// use App\Http\Controllers\Controller;
 use App\Http\Resources\DataStatisticsResource;
+use Illuminate\Routing\Controller;
 
 use App\Http\Resources\StastLogsResource;
 use App\Models\ActionLog;
-use http\Env\Request;
+
 use Illuminate\Support\Facades\DB;
 
 
 class StatisticsDataUsersController extends Controller
 {
+        public function __construct()
+    {
+        $this->middleware('can:viewLogs,App\Models\ActionLog');
+    }
+
+
     public function index()
     {
+        // $this->authorize('viewLogs', ActionLog::class);
+
         $totalAccounts = DB::table('users')->count();
         $newestUser = DB::table('users')->orderBy('created_at', 'desc')->first();
         $oldestUser = DB::table('users')->orderBy('created_at', 'asc')->first();
@@ -35,7 +44,7 @@ class StatisticsDataUsersController extends Controller
     }
     public function logstats()
     {
-//
+            //  $this->authorize('viewLogs', ActionLog::class);
 
         $logs = DB::table('action_logs')->select(['id','user_id','action','ip_address','endpoint','request_data','response_data','created_at'])->paginate(10);
 
