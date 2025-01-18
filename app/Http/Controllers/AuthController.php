@@ -133,7 +133,7 @@ class AuthController extends Controller
      */
 
 
-    public function login(LoginPostRequest $request)
+     public function login(LoginPostRequest $request)
     {
 
         $credentials = $request->only(['email', 'password']);
@@ -158,6 +158,7 @@ class AuthController extends Controller
 
         ],401);
     }
+
 
 
     /**
@@ -280,13 +281,6 @@ class AuthController extends Controller
 
         $user = User::create($validateData);
 
-        $log = ActionLog::where('user_id', $user->id)->latest()->first();
-
-        if ($log) {
-            $log->update([
-                'endpoint'=> $request->path(),
-            ]);
-        }
 
 
 
