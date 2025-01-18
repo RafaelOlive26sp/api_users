@@ -133,7 +133,7 @@ class AuthController extends Controller
      */
 
 
-    public function login(LoginPostRequest $request)
+     public function login(LoginPostRequest $request)
     {
 
         $credentials = $request->only(['email', 'password']);
@@ -144,6 +144,12 @@ class AuthController extends Controller
             return response()->json([
                 'access_token' => $tokenResult,
                 'token_type' => 'Bearer',
+                'user'=>[
+                    'id' => $user->id,
+                    'name'=> $user->name,
+                    'email'=> $user->email,
+                    'privilege_id'=> $user->privilege_id,
+                ],
             ]);
         }
 
@@ -152,6 +158,7 @@ class AuthController extends Controller
 
         ],401);
     }
+
 
 
     /**
