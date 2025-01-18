@@ -11,8 +11,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use OpenApi\Annotations as OA;
-
-
+use PhpParser\Node\Stmt\TryCatch;
+use function Laravel\Prompts\error;
 
 class UserController extends Controller
 {
@@ -210,6 +210,7 @@ class UserController extends Controller
 
 
     public function show(User $user)
+    public function show(User $user)
     {
         // Quando usando o USER no parametro na funcao o laravel faz a pesquisa no bd automaticamente
 
@@ -378,6 +379,13 @@ class UserController extends Controller
         $user->update($validatorData);
 
         return new UsersResource($user);
+    }
+
+
+
+
+    public function logAccess(){
+
     }
 
     /**

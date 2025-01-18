@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\URL;
@@ -42,6 +43,8 @@ class AppServiceProvider extends ServiceProvider
            ->salutation('Att, Equipe Minha Aplicação');
         });
 
+
+
     }
 
     /**
@@ -56,4 +59,6 @@ class AppServiceProvider extends ServiceProvider
             }
         }
     }
+
+
 }
