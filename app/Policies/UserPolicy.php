@@ -25,6 +25,8 @@ class UserPolicy
 
     }
 
+
+
     public function update(User $user): bool
     {
         return in_array($user->privilege_id,[1,2]);
