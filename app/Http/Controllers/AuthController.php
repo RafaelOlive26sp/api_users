@@ -144,12 +144,6 @@ class AuthController extends Controller
             return response()->json([
                 'access_token' => $tokenResult,
                 'token_type' => 'Bearer',
-                'user'=>[
-                    'id' => $user->id,
-                    'name'=> $user->name,
-                    'email'=> $user->email,
-                    'privilege_id'=> $user->privilege_id,
-                ],
             ]);
         }
 
@@ -280,13 +274,6 @@ class AuthController extends Controller
 
         $user = User::create($validateData);
 
-        $log = ActionLog::where('user_id', $user->id)->latest()->first();
-
-        if ($log) {
-            $log->update([
-                'endpoint'=> $request->path(),
-            ]);
-        }
 
 
 
